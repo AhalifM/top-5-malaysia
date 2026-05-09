@@ -1,7 +1,6 @@
 'use client';
 
-import { motion } from 'framer-motion';
-import { ExternalLink, Eye, Play } from 'lucide-react';
+import Script from 'next/script';
 import AnimateIn from './AnimateIn';
 import { useLang } from '@/context/LanguageContext';
 import type { SiteContent } from '@/lib/content';
@@ -11,11 +10,22 @@ interface Props {
   content: SiteContent['portfolio'];
 }
 
+function getTikTokVideoId(url: string): string | null {
+  try {
+    const parsed = new URL(url);
+    const match = parsed.pathname.match(/\/video\/(\d+)/);
+    return match?.[1] ?? null;
+  } catch {
+    return null;
+  }
+}
+
 export default function PortfolioSection({ content }: Props) {
   const { lang } = useLang();
 
   return (
     <section id="portfolio" className="py-28 px-6 relative">
+      <Script src="https://www.tiktok.com/embed.js" strategy="lazyOnload" />
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gold/20 to-transparent" />
 
       <div className="max-w-7xl mx-auto">
@@ -30,49 +40,48 @@ export default function PortfolioSection({ content }: Props) {
           </h2>
         </AnimateIn>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-          {content.map((item, i) => (
-            <AnimateIn key={item.id} delay={i * 0.07}>
-              <motion.a
-                href={item.videoLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                whileHover={{ scale: 1.02 }}
-                transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-                className="group relative block aspect-[9/16] rounded-2xl overflow-hidden bg-card border border-border"
-              >
-                <img
-                  src={item.thumbnail}
-                  alt={t(item.title, lang)}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                />
-                {/* Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-[oklch(0.09_0.008_80/0.9)] via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 items-start">
+          {content.map((item, i) => {
+            const videoId = getTikTokVideoId(item.videoLink);
 
-                {/* Play button */}
-                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <div className="w-14 h-14 rounded-full bg-gold flex items-center justify-center gold-glow">
-                    <Play size={18} fill="currentColor" className="text-[oklch(0.09_0.008_80)] ml-1" />
+            return (
+              <AnimateIn key={item.id} delay={i * 0.07}>
+                {videoId ? (
+                  <div className="relative overflow-hidden rounded-2xl border border-border bg-card">
+                    <blockquote
+                      className="tiktok-embed !m-0 !min-w-0 !max-w-none"
+                      cite={item.videoLink}
+                      data-video-id={videoId}
+                      data-embed-from="oembed"
+                      style={{ minWidth: 0, maxWidth: '100%' }}
+                    >
+                      <section>
+                        <a target="_blank" rel="noopener noreferrer" href={item.videoLink}>
+                          {t(item.title, lang)}
+                        </a>
+                      </section>
+                    </blockquote>
                   </div>
-                </div>
-
-                {item.views && (
-                  <div className="absolute top-3 left-3 flex items-center gap-1.5 rounded-full border border-white/10 bg-[oklch(0.09_0.008_80/0.72)] px-2.5 py-1.5 text-[11px] font-semibold text-foreground shadow-lg backdrop-blur-md">
-                    <Eye size={12} className="text-gold" />
-                    <span>{item.views}</span>
-                  </div>
+                ) : (
+                  <a
+                    href={item.videoLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="relative block aspect-[9/16] overflow-hidden rounded-2xl border border-border bg-card"
+                  >
+                    <img
+                      src={item.thumbnail}
+                      alt={t(item.title, lang)}
+                      className="size-full object-cover"
+                    />
+                    <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-background/90 to-transparent p-4">
+                      <span className="text-sm font-semibold text-foreground">{t(item.title, lang)}</span>
+                    </div>
+                  </a>
                 )}
-
-                {/* Title */}
-                <div className="absolute bottom-0 left-0 right-0 p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out">
-                  <div className="flex items-center justify-between">
-                    <span className="text-xs font-semibold text-foreground">{t(item.title, lang)}</span>
-                    <ExternalLink size={12} className="text-gold" />
-                  </div>
-                </div>
-              </motion.a>
-            </AnimateIn>
-          ))}
+              </AnimateIn>
+            );
+          })}
         </div>
       </div>
     </section>
