@@ -206,7 +206,7 @@ export default function PortfolioCarousel({ content, lang }: Props) {
         next.add(activeItem.id);
         return next;
       });
-    }, 2500);
+    }, 6000);
 
     return () => window.clearTimeout(timeout);
   }, [activeItem, embedKey]);
