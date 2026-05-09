@@ -1,0 +1,354 @@
+{
+  "brand": {
+    "name": "Top 5 Malaysia",
+    "highlight": "Top 5"
+  },
+  "hero": {
+    "headline": {
+      "en": "TikTok Content Creation, Way More Affordable With Swifty",
+      "my": "Cipta Konten TikTok, Jauh Lebih Mampu Milik Dengan Swifty"
+    },
+    "subheading": {
+      "en": "Stop struggling with content. Let our 20+ creators handle everything — from ideation to posting — while you focus on running your business.",
+      "my": "Henti bersusah payah dengan konten. Biar 20+ kreator kami uruskan semuanya — dari idea hingga penerbitan — sementara anda fokus pada perniagaan."
+    },
+    "backgroundImage": "https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?w=1920&q=80",
+    "ctaText": {
+      "en": "Get Started on WhatsApp",
+      "my": "Mulakan di WhatsApp"
+    },
+    "ctaLink": "https://wa.me/60123456789"
+  },
+  "benefits": [
+    {
+      "id": "b1",
+      "icon": "https://cdn-icons-png.flaticon.com/512/1087/1087840.png",
+      "heading": {
+        "en": "No Skills Needed",
+        "my": "Tiada Kemahiran Diperlukan"
+      },
+      "text": {
+        "en": "Don't know how to film or edit? No problem. We take care of the entire creative process from script to final cut.",
+        "my": "Tak tahu cara merakam atau mengedit? Tiada masalah. Kami uruskan keseluruhan proses kreatif dari skrip hingga klip akhir."
+      }
+    },
+    {
+      "id": "b2",
+      "icon": "https://cdn-icons-png.flaticon.com/512/3135/3135715.png",
+      "heading": {
+        "en": "No In-House Team Required",
+        "my": "Tiada Pasukan Dalaman Diperlukan"
+      },
+      "text": {
+        "en": "Skip the salaries, EPF, and overhead. Access a full creative team for a fraction of the cost.",
+        "my": "Lupakan gaji, KWSP, dan kos tambahan. Dapatkan pasukan kreatif penuh pada sebahagian kecil kos."
+      }
+    },
+    {
+      "id": "b3",
+      "icon": "https://cdn-icons-png.flaticon.com/512/2331/2331970.png",
+      "heading": {
+        "en": "Up to 90% More Affordable",
+        "my": "Sehingga 90% Lebih Jimat"
+      },
+      "text": {
+        "en": "We cost significantly less than traditional agencies while delivering the same quality content that drives real results.",
+        "my": "Kami jauh lebih murah daripada agensi tradisional sambil menghasilkan konten berkualiti yang memberi keputusan nyata."
+      }
+    },
+    {
+      "id": "b4",
+      "icon": "https://cdn-icons-png.flaticon.com/512/1041/1041916.png",
+      "heading": {
+        "en": "Multi-Industry Expertise",
+        "my": "Kepakaran Pelbagai Industri"
+      },
+      "text": {
+        "en": "From F&B to beauty, lifestyle to home — our creators know how to speak to your specific audience and make them buy.",
+        "my": "Dari F&B ke kecantikan, gaya hidup ke rumah — kreator kami tahu cara bertutur dengan audiens anda dan membuat mereka membeli."
+      }
+    }
+  ],
+  "company": {
+    "teamImage": "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1200&q=80",
+    "heading": {
+      "en": "Meet Swifty",
+      "my": "Kenali Swifty"
+    },
+    "text": {
+      "en": "We're a content creation arm of Swifty — Malaysia's fastest-growing freelancer platform with 150,000+ users and 5,000+ verified freelancers. We channel that network into a streamlined content machine that empowers businesses to dominate TikTok and Reels without the agency price tag.",
+      "my": "Kami adalah bahagian cipta konten Swifty — platform pekerja bebas paling pesat berkembang di Malaysia dengan 150,000+ pengguna dan 5,000+ pekerja bebas yang disahkan. Kami menyalurkan rangkaian itu ke dalam mesin konten yang memperkasa perniagaan untuk menguasai TikTok dan Reels tanpa harga agensi."
+    },
+    "stat": "1,000+",
+    "statLabel": {
+      "en": "Businesses Empowered",
+      "my": "Perniagaan Diperkasakan"
+    },
+    "logos": [
+      {
+        "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Grab_logo_2019.svg/2560px-Grab_logo_2019.svg.png",
+        "alt": "Grab"
+      },
+      {
+        "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Shopee_logo.svg/2560px-Shopee_logo.svg.png",
+        "alt": "Shopee"
+      },
+      {
+        "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Lazada_Logo.svg/2560px-Lazada_Logo.svg.png",
+        "alt": "Lazada"
+      },
+      {
+        "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/Sephora_logo_black.svg/2560px-Sephora_logo_black.svg.png",
+        "alt": "Sephora"
+      },
+      {
+        "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Mydin_logo.svg/2560px-Mydin_logo.svg.png",
+        "alt": "Mydin"
+      }
+    ]
+  },
+  "pricing": [
+    {
+      "id": "p1",
+      "name": {
+        "en": "Trial Package",
+        "my": "Pakej Percubaan"
+      },
+      "price": "RM 1,250",
+      "originalPrice": "RM 2,500",
+      "features": {
+        "en": [
+          "5 short-form videos",
+          "2–3 dedicated creators",
+          "Strategy consultation",
+          "Dedicated project manager",
+          "1 revision round"
+        ],
+        "my": [
+          "5 video pendek",
+          "2–3 kreator khusus",
+          "Perundingan strategi",
+          "Pengurus projek khusus",
+          "1 pusingan semakan"
+        ]
+      },
+      "ctaLink": "https://wa.me/60123456789?text=Hi%2C+I'm+interested+in+the+Trial+Package",
+      "featured": false
+    },
+    {
+      "id": "p2",
+      "name": {
+        "en": "Starter Package",
+        "my": "Pakej Permulaan"
+      },
+      "price": "RM 2,000",
+      "originalPrice": "RM 5,000",
+      "features": {
+        "en": [
+          "10 short-form videos",
+          "4–5 dedicated creators",
+          "Strategy consultation",
+          "Dedicated project manager",
+          "2 revision rounds",
+          "Performance report"
+        ],
+        "my": [
+          "10 video pendek",
+          "4–5 kreator khusus",
+          "Perundingan strategi",
+          "Pengurus projek khusus",
+          "2 pusingan semakan",
+          "Laporan prestasi"
+        ]
+      },
+      "ctaLink": "https://wa.me/60123456789?text=Hi%2C+I'm+interested+in+the+Starter+Package",
+      "featured": true
+    },
+    {
+      "id": "p3",
+      "name": {
+        "en": "Premium Package",
+        "my": "Pakej Premium"
+      },
+      "price": "RM 4,500",
+      "originalPrice": "RM 12,000",
+      "features": {
+        "en": [
+          "30 short-form videos",
+          "8–10+ dedicated creators",
+          "Full strategy & calendar",
+          "Dedicated project manager",
+          "Unlimited revisions",
+          "Monthly performance report",
+          "TikTok upload service"
+        ],
+        "my": [
+          "30 video pendek",
+          "8–10+ kreator khusus",
+          "Strategi & kalendar penuh",
+          "Pengurus projek khusus",
+          "Semakan tanpa had",
+          "Laporan prestasi bulanan",
+          "Perkhidmatan muat naik TikTok"
+        ]
+      },
+      "ctaLink": "https://wa.me/60123456789?text=Hi%2C+I'm+interested+in+the+Premium+Package",
+      "featured": false
+    }
+  ],
+  "portfolio": [
+    {
+      "id": "pf1",
+      "thumbnail": "https://p19-common-sign.tiktokcdn.com/tos-useast8-p-0068-tx2/oQcR7Id9PDOAAAi5irhELSTLAEBaBlkLD6iZA~tplv-tiktokx-origin.image?dr=14575&x-expires=1778464800&x-signature=PSPmsCHB3B0ademSfmvDDvGtJLk%3D&t=4d5b0474&ps=13740610&shp=81f88b70&shcp=43f4a2f9&idc=my",
+      "videoLink": "https://www.tiktok.com/@lospeluches_5/video/7625407953041902878?is_from_webapp=1&sender_device=pc",
+      "views": "128K views",
+      "title": {
+        "en": "F&B Brand Campaign",
+        "my": "Kempen Jenama F&B"
+      }
+    },
+    {
+      "id": "pf2",
+      "thumbnail": "https://p16-common-sign.tiktokcdn.com/tos-alisg-p-0037/o0xXxAAqpCBZlBVxC8iigeBPEsARo9AIERfJUV~tplv-tiktokx-origin.image?dr=14575&x-expires=1778464800&x-signature=9rKzmSBuoBUIh5ftKJ6%2F514qsdU%3D&t=4d5b0474&ps=13740610&shp=81f88b70&shcp=43f4a2f9&idc=my",
+      "videoLink": "https://www.tiktok.com/@nrhzfht/video/7615970225393077524?is_from_webapp=1&sender_device=pc",
+      "views": "92K views",
+      "title": {
+        "en": "Beauty Product Launch",
+        "my": "Pelancaran Produk Kecantikan"
+      }
+    },
+    {
+      "id": "pf3",
+      "thumbnail": "https://p16-common-sign.tiktokcdn.com/tos-useast8-p-0068-tx2/oQcR7Id9PDOAAAi5irhELSTLAEBaBlkLD6iZA~tplv-tiktokx-origin.image?dr=14575&x-expires=1778464800&x-signature=FbggMBGZeNukpYYltm5%2F3tQphMM%3D&t=4d5b0474&ps=13740610&shp=81f88b70&shcp=43f4a2f9&idc=my",
+      "videoLink": "https://www.tiktok.com/@lospeluches_5/video/7625407953041902878?is_from_webapp=1&sender_device=pc",
+      "views": "210K views",
+      "title": {
+        "en": "Lifestyle Review",
+        "my": "Ulasan Gaya Hidup"
+      }
+    },
+    {
+      "id": "pf4",
+      "thumbnail": "https://images.unsplash.com/photo-1556909172-54557c7e4fb7?w=600&q=80",
+      "videoLink": "https://www.tiktok.com/@lospeluches_5/video/7625407953041902878?is_from_webapp=1&sender_device=pc",
+      "views": "74K views",
+      "title": {
+        "en": "Home & Living",
+        "my": "Rumah & Kehidupan"
+      }
+    },
+    {
+      "id": "pf5",
+      "thumbnail": "https://images.unsplash.com/photo-1542838132-92c53300491e?w=600&q=80",
+      "videoLink": "https://www.tiktok.com",
+      "views": "156K views",
+      "title": {
+        "en": "Grocery Haul",
+        "my": "Borong Bahan Makanan"
+      }
+    },
+    {
+      "id": "pf6",
+      "thumbnail": "https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=600&q=80",
+      "videoLink": "https://www.tiktok.com",
+      "views": "318K views",
+      "title": {
+        "en": "Flash Sale Promo",
+        "my": "Promosi Jualan Kilat"
+      }
+    }
+  ],
+  "faq": [
+    {
+      "id": "faq1",
+      "question": {
+        "en": "How does the onboarding process work?",
+        "my": "Bagaimana proses onboarding berjalan?"
+      },
+      "answer": {
+        "en": "After you reach out via WhatsApp, our project manager will schedule a brief strategy call to understand your brand, goals, and target audience. We then match you with the right creators and kick off production within 48 hours.",
+        "my": "Selepas anda menghubungi kami melalui WhatsApp, pengurus projek kami akan menjadualkan panggilan strategi ringkas untuk memahami jenama, matlamat, dan audiens sasaran anda. Kami kemudian memadankan anda dengan kreator yang sesuai dan memulakan pengeluaran dalam masa 48 jam."
+      }
+    },
+    {
+      "id": "faq2",
+      "question": {
+        "en": "Is this suitable for my type of business?",
+        "my": "Adakah ini sesuai untuk jenis perniagaan saya?"
+      },
+      "answer": {
+        "en": "Yes! We work with businesses across F&B, beauty, lifestyle, home, e-commerce, and services. If you sell something, we can make compelling content for it.",
+        "my": "Ya! Kami bekerjasama dengan perniagaan di seluruh F&B, kecantikan, gaya hidup, rumah, e-dagang, dan perkhidmatan. Jika anda menjual sesuatu, kami boleh menghasilkan konten yang menarik untuknya."
+      }
+    },
+    {
+      "id": "faq3",
+      "question": {
+        "en": "Why is this cheaper than hiring in-house?",
+        "my": "Mengapa ini lebih murah daripada mengambil pekerja dalaman?"
+      },
+      "answer": {
+        "en": "Hiring a full-time content creator in Malaysia costs RM 3,000–6,000/month in salary alone, plus EPF, SOCSO, equipment, and editing software. With Swifty, you get an entire team at a flat monthly rate with no hidden costs.",
+        "my": "Mengambil pencipta konten sepenuh masa di Malaysia menelan kos RM 3,000–6,000/bulan dalam gaji sahaja, ditambah KWSP, PERKESO, peralatan, dan perisian penyuntingan. Dengan Swifty, anda mendapat keseluruhan pasukan pada kadar bulanan tetap tanpa kos tersembunyi."
+      }
+    },
+    {
+      "id": "faq4",
+      "question": {
+        "en": "What exactly is UGC content?",
+        "my": "Apakah kandungan UGC sebenarnya?"
+      },
+      "answer": {
+        "en": "User-Generated Content (UGC) is authentic, creator-made video that looks and feels organic — like a real customer review or lifestyle post — rather than a polished ad. This style consistently outperforms traditional ads on TikTok and Instagram.",
+        "my": "Kandungan yang Dijana Pengguna (UGC) adalah video autentik yang dibuat oleh kreator yang kelihatan dan terasa organik — seperti ulasan pelanggan sebenar atau siaran gaya hidup — bukan iklan yang digilap. Gaya ini secara konsisten mengatasi iklan tradisional di TikTok dan Instagram."
+      }
+    },
+    {
+      "id": "faq5",
+      "question": {
+        "en": "How long does delivery take?",
+        "my": "Berapa lama masa penghantaran?"
+      },
+      "answer": {
+        "en": "Standard turnaround is 5–7 business days per batch of videos. Rush delivery (3 days) is available on Premium package. You'll receive all files via Google Drive or WeTransfer.",
+        "my": "Tempoh pusingan standard ialah 5–7 hari bekerja setiap kumpulan video. Penghantaran segera (3 hari) tersedia pada pakej Premium. Anda akan menerima semua fail melalui Google Drive atau WeTransfer."
+      }
+    },
+    {
+      "id": "faq6",
+      "question": {
+        "en": "Do you upload the content to our accounts?",
+        "my": "Adakah anda memuat naik kandungan ke akaun kami?"
+      },
+      "answer": {
+        "en": "Upload service is included in the Premium Package. For Trial and Starter, we deliver the video files and you post them. We provide a recommended posting schedule and caption templates.",
+        "my": "Perkhidmatan muat naik disertakan dalam Pakej Premium. Untuk Percubaan dan Permulaan, kami menghantar fail video dan anda menyiarkannya. Kami menyediakan jadual posting yang disyorkan dan templat kapsyen."
+      }
+    },
+    {
+      "id": "faq7",
+      "question": {
+        "en": "Who owns the content rights?",
+        "my": "Siapa yang memiliki hak kandungan?"
+      },
+      "answer": {
+        "en": "You do. Once delivered and paid for, all content is 100% yours to use, repurpose, and distribute across any platform.",
+        "my": "Anda. Setelah dihantar dan dibayar, semua kandungan adalah 100% milik anda untuk digunakan, digunakan semula, dan diedarkan di mana-mana platform."
+      }
+    }
+  ],
+  "footer": {
+    "text": {
+      "en": "Swifty Agency is a content creation subsidiary of Swifty — Malaysia's leading freelancer platform with 150,000+ users.",
+      "my": "Swifty Agency adalah anak syarikat cipta konten Swifty — platform pekerja bebas terkemuka Malaysia dengan 150,000+ pengguna."
+    },
+    "social": {
+      "twitter": "https://twitter.com/swiftymy",
+      "facebook": "https://facebook.com/swiftymy",
+      "instagram": "https://instagram.com/swiftymy",
+      "tiktok": "https://tiktok.com/@swiftymy"
+    },
+    "address": "Kuala Lumpur, Malaysia",
+    "copyright": "© 2025 Swifty Agency. All rights reserved."
+  }
+}
