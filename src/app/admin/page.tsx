@@ -648,13 +648,19 @@ export default function AdminPage() {
                             )}
                           </div>
                         </div>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                          <Field label="Views" value={item.views ?? ''} placeholder="e.g. 1.2M"
+                            onChange={(v) => { const u = [...content.portfolio]; u[i] = { ...item, views: v }; updateContent('portfolio', u); }} />
+                          <Field label="Likes" value={item.likes ?? ''} placeholder="e.g. 31.4K"
+                            onChange={(v) => { const u = [...content.portfolio]; u[i] = { ...item, likes: v }; updateContent('portfolio', u); }} />
+                        </div>
                         <BilingualField label="Title" value={item.title}
                           onChange={(v) => { const u = [...content.portfolio]; u[i] = { ...item, title: v }; updateContent('portfolio', u); }} />
                       </div>
                     ))}
                   </div>
                   <button onClick={() => updateContent('portfolio', [...content.portfolio, {
-                    id: `pf${Date.now()}`, thumbnail: '', videoLink: '', title: { en: '', my: '' }
+                    id: `pf${Date.now()}`, thumbnail: '', videoLink: '', views: '', likes: '', title: { en: '', my: '' }
                   }])}
                     className="flex items-center gap-2 text-sm text-gold border border-gold/30 rounded-xl px-4 py-3 hover:bg-gold/5 transition-all">
                     <Plus size={14} /> Add Portfolio Item

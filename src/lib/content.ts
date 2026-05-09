@@ -34,6 +34,8 @@ export interface PortfolioItem {
   id: string;
   thumbnail: string;
   videoLink: string;
+  views?: string;
+  likes?: string;
   title: LocalizedString;
 }
 

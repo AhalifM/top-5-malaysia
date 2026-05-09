@@ -1,6 +1,6 @@
 'use client';
 
-import Script from 'next/script';
+import { ExternalLink, Eye, Heart, Play } from 'lucide-react';
 import { Autoplay, EffectCoverflow, Navigation, Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import type { Lang, SiteContent } from '@/lib/content';
@@ -14,14 +14,6 @@ import 'swiper/css/pagination';
 interface Props {
   content: SiteContent['portfolio'];
   lang: Lang;
-}
-
-declare global {
-  interface Window {
-    tiktokEmbed?: {
-      load: () => void;
-    };
-  }
 }
 
 const carouselCss = `
@@ -62,29 +54,11 @@ const carouselCss = `
   }
 `;
 
-function getTikTokVideoId(url: string): string | null {
-  try {
-    const parsed = new URL(url);
-    const match = parsed.pathname.match(/\/video\/(\d+)/);
-    return match?.[1] ?? null;
-  } catch {
-    return null;
-  }
-}
-
-function loadTikTokEmbeds() {
-  window.tiktokEmbed?.load();
-}
-
 export default function PortfolioCarousel({ content, lang }: Props) {
+  const watchLabel = lang === 'en' ? 'Watch on TikTok' : 'Tonton di TikTok';
+
   return (
     <div className="overflow-hidden rounded-3xl border border-border bg-card/20 px-2 py-8 md:px-8">
-      <Script
-        src="https://www.tiktok.com/embed.js"
-        strategy="lazyOnload"
-        onLoad={loadTikTokEmbeds}
-        onReady={loadTikTokEmbeds}
-      />
       <style>{carouselCss}</style>
       <Swiper
         className="tiktok-portfolio-carousel"
@@ -111,45 +85,52 @@ export default function PortfolioCarousel({ content, lang }: Props) {
       >
         {content.map((item) => {
           const title = t(item.title, lang) || '@top5malaysia';
-          const videoId = getTikTokVideoId(item.videoLink);
 
           return (
             <SwiperSlide key={item.id}>
-              {videoId ? (
-                <div className="relative overflow-hidden rounded-2xl border border-border bg-card">
-                  <blockquote
-                    className="tiktok-embed !m-0 !min-w-0 !max-w-none"
-                    cite={item.videoLink}
-                    data-video-id={videoId}
-                    data-embed-from="oembed"
-                    style={{ minWidth: 0, maxWidth: '100%' }}
-                  >
-                    <section>
-                      <a target="_blank" rel="noopener noreferrer" href={item.videoLink}>
-                        {title}
-                      </a>
-                    </section>
-                  </blockquote>
+              <a
+                href={item.videoLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`${watchLabel}: ${title}`}
+                className="group relative block aspect-[9/16] overflow-hidden rounded-2xl border border-border bg-card"
+              >
+                <img
+                  src={item.thumbnail}
+                  alt={title}
+                  loading="lazy"
+                  decoding="async"
+                  className="size-full object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-background via-background/10 to-transparent opacity-95" />
+                <div className="absolute left-4 right-4 top-4 flex items-center justify-between">
+                  <span className="inline-flex size-10 items-center justify-center rounded-full bg-background/70 text-gold backdrop-blur">
+                    <Play size={18} fill="currentColor" />
+                  </span>
+                  <span className="inline-flex size-10 items-center justify-center rounded-full bg-background/70 text-foreground backdrop-blur">
+                    <ExternalLink size={17} />
+                  </span>
                 </div>
-              ) : (
-                <a
-                  href={item.videoLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="relative block aspect-[9/16] overflow-hidden rounded-2xl border border-border bg-card"
-                >
-                  <img
-                    src={item.thumbnail}
-                    alt={title}
-                    loading="lazy"
-                    decoding="async"
-                    className="size-full object-cover"
-                  />
-                  <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-background/90 to-transparent p-4">
-                    <span className="text-sm font-semibold text-foreground">{title}</span>
+                <div className="absolute inset-x-0 bottom-0 p-5">
+                  <p className="text-xs font-semibold uppercase tracking-widest text-gold">
+                    TikTok
+                  </p>
+                  <h3 className="mt-2 text-lg font-semibold leading-tight text-foreground">
+                    {title}
+                  </h3>
+                  <div className="mt-3 flex items-center gap-3 text-xs font-semibold text-muted-foreground">
+                    <span className="inline-flex items-center gap-1.5">
+                      <Eye size={14} className="text-gold" />
+                      {item.views || '--'}
+                    </span>
+                    <span className="inline-flex items-center gap-1.5">
+                      <Heart size={14} className="text-gold" />
+                      {item.likes || '--'}
+                    </span>
                   </div>
-                </a>
-              )}
+                  <p className="mt-3 text-sm text-muted-foreground">{watchLabel}</p>
+                </div>
+              </a>
             </SwiperSlide>
           );
         })}
