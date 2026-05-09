@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { ArrowRight, Play } from 'lucide-react';
+import Image from 'next/image';
 import { useLang } from '@/context/LanguageContext';
 import type { SiteContent } from '@/lib/content';
 import { t } from '@/lib/content';
@@ -17,10 +18,13 @@ export default function HeroSection({ content }: Props) {
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Background image */}
       <div className="absolute inset-0 z-0">
-        <img
+        <Image
           src={content.backgroundImage}
           alt=""
-          className="w-full h-full object-cover"
+          fill
+          preload
+          sizes="100vw"
+          className="object-cover"
         />
         <div className="absolute inset-0 bg-[oklch(0.09_0.008_80/0.82)]" />
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[oklch(0.09_0.008_80)]" />

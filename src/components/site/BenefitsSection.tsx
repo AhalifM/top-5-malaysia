@@ -54,6 +54,8 @@ export default function BenefitsSection({ content }: Props) {
                   <img
                     src={benefit.icon}
                     alt=""
+                    loading="lazy"
+                    decoding="async"
                     className="w-6 h-6 object-contain"
                     style={{ filter: 'invert(1) sepia(1) saturate(2) hue-rotate(5deg)' }}
                     onError={(e) => {

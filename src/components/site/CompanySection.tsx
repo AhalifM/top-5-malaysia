@@ -25,6 +25,8 @@ export default function CompanySection({ content }: Props) {
             <img
               src={content.teamImage}
               alt="Swifty team"
+              loading="lazy"
+              decoding="async"
               className="w-full aspect-[4/3] object-cover rounded-2xl"
             />
             {/* Stat badge */}
@@ -60,6 +62,8 @@ export default function CompanySection({ content }: Props) {
                   key={logo.alt}
                   src={logo.src}
                   alt={logo.alt}
+                  loading="lazy"
+                  decoding="async"
                   className="h-6 object-contain opacity-40 hover:opacity-80 transition-opacity duration-300 grayscale hover:grayscale-0"
                   style={{ filter: 'invert(1) grayscale(1)' }}
                   onError={(e) => {
