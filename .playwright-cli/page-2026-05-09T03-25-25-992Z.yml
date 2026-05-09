@@ -1,0 +1,265 @@
+- generic [active] [ref=e1]:
+  - main [ref=e2]:
+    - generic [ref=e4]:
+      - link "Top 5 Malaysia" [ref=e5] [cursor=pointer]:
+        - /url: "#"
+        - generic [ref=e6]: Top 5 Malaysia
+      - navigation [ref=e7]:
+        - link "Benefits" [ref=e8] [cursor=pointer]:
+          - /url: "#benefits"
+        - link "About" [ref=e9] [cursor=pointer]:
+          - /url: "#about"
+        - link "Pricing" [ref=e10] [cursor=pointer]:
+          - /url: "#pricing"
+        - link "Portfolio" [ref=e11] [cursor=pointer]:
+          - /url: "#portfolio"
+        - link "FAQ" [ref=e12] [cursor=pointer]:
+          - /url: "#faq"
+      - button "EN / MY" [ref=e14]:
+        - generic [ref=e15]: EN
+        - generic [ref=e16]: /
+        - generic [ref=e17]: MY
+    - generic [ref=e22]:
+      - generic [ref=e24]:
+        - img [ref=e25]
+        - text: Malaysia's Most Affordable UGC Agency
+      - heading "TikTok Content Creation, Way More Affordable With Swifty" [level=1] [ref=e27]:
+        - generic [ref=e28]: TikTok
+        - generic [ref=e29]: Content
+        - generic [ref=e30]: Creation,
+        - generic [ref=e31]: Way
+        - generic [ref=e32]: More
+        - generic [ref=e33]: Affordable
+        - generic [ref=e34]: With
+        - text: Swifty
+      - paragraph [ref=e35]: Stop struggling with content. Let our 20+ creators handle everything — from ideation to posting — while you focus on running your business.
+      - generic [ref=e36]:
+        - link "Get Started on WhatsApp" [ref=e37] [cursor=pointer]:
+          - /url: https://wa.me/60123456789
+          - text: Get Started on WhatsApp
+          - img [ref=e38]
+        - link "Watch Our Work" [ref=e40] [cursor=pointer]:
+          - /url: "#portfolio"
+          - img [ref=e41]
+          - text: Watch Our Work
+    - generic [ref=e47]:
+      - generic [ref=e48]:
+        - paragraph [ref=e49]: Why Swifty
+        - heading "Everything you need, nothing you don't" [level=2] [ref=e50]:
+          - text: Everything you need,
+          - text: nothing you don't
+      - generic [ref=e51]:
+        - generic [ref=e53]:
+          - generic [ref=e55]: "01"
+          - generic [ref=e57]:
+            - heading "No Skills Needed" [level=3] [ref=e58]
+            - paragraph [ref=e59]: Don't know how to film or edit? No problem. We take care of the entire creative process from script to final cut.
+        - generic [ref=e61]:
+          - generic [ref=e63]: "02"
+          - generic [ref=e65]:
+            - heading "No In-House Team Required" [level=3] [ref=e66]
+            - paragraph [ref=e67]: Skip the salaries, EPF, and overhead. Access a full creative team for a fraction of the cost.
+        - generic [ref=e69]:
+          - generic [ref=e71]: "03"
+          - generic [ref=e73]:
+            - heading "Up to 90% More Affordable" [level=3] [ref=e74]
+            - paragraph [ref=e75]: We cost significantly less than traditional agencies while delivering the same quality content that drives real results.
+        - generic [ref=e77]:
+          - generic [ref=e79]: "04"
+          - generic [ref=e81]:
+            - heading "Multi-Industry Expertise" [level=3] [ref=e82]
+            - paragraph [ref=e83]: From F&B to beauty, lifestyle to home — our creators know how to speak to your specific audience and make them buy.
+    - generic [ref=e86]:
+      - generic [ref=e88]:
+        - img "Swifty team" [ref=e89]
+        - generic [ref=e90]:
+          - generic [ref=e91]: 1,000+
+          - generic [ref=e92]: Businesses Empowered
+      - generic [ref=e93]:
+        - paragraph [ref=e94]: Our Story
+        - heading "Meet Swifty" [level=2] [ref=e95]
+        - paragraph [ref=e96]: We're a content creation arm of Swifty — Malaysia's fastest-growing freelancer platform with 150,000+ users and 5,000+ verified freelancers. We channel that network into a streamlined content machine that empowers businesses to dominate TikTok and Reels without the agency price tag.
+        - generic [ref=e97]:
+          - paragraph [ref=e98]: Trusted by brands like
+          - generic [ref=e99]:
+            - img "Grab" [ref=e100]
+            - img "Shopee" [ref=e101]
+            - img "Lazada" [ref=e102]
+            - img "Sephora" [ref=e103]
+            - img "Mydin" [ref=e104]
+    - generic [ref=e107]:
+      - generic [ref=e108]:
+        - paragraph [ref=e109]: Pricing
+        - heading "Packages that fit every budget" [level=2] [ref=e110]:
+          - img [ref=e111]
+          - text: Packages that fit every budget
+      - generic [ref=e113]:
+        - generic [ref=e115]:
+          - generic [ref=e116]:
+            - heading "Trial Package" [level=3] [ref=e117]
+            - generic [ref=e118]:
+              - generic [ref=e119]: RM 1,250
+              - generic [ref=e120]: RM 2,500
+          - list [ref=e121]:
+            - listitem [ref=e122]:
+              - img [ref=e123]
+              - generic [ref=e125]: 5 short-form videos
+            - listitem [ref=e126]:
+              - img [ref=e127]
+              - generic [ref=e129]: 2–3 dedicated creators
+            - listitem [ref=e130]:
+              - img [ref=e131]
+              - generic [ref=e133]: Strategy consultation
+            - listitem [ref=e134]:
+              - img [ref=e135]
+              - generic [ref=e137]: Dedicated project manager
+            - listitem [ref=e138]:
+              - img [ref=e139]
+              - generic [ref=e141]: 1 revision round
+          - link "I'm Interested" [ref=e142] [cursor=pointer]:
+            - /url: https://wa.me/60123456789?text=Hi%2C+I'm+interested+in+the+Trial+Package
+            - text: I'm Interested
+            - img [ref=e143]
+        - generic [ref=e146]:
+          - generic [ref=e147]: Most Popular
+          - generic [ref=e148]:
+            - heading "Starter Package" [level=3] [ref=e149]
+            - generic [ref=e150]:
+              - generic [ref=e151]: RM 2,000
+              - generic [ref=e152]: RM 5,000
+          - list [ref=e153]:
+            - listitem [ref=e154]:
+              - img [ref=e155]
+              - generic [ref=e157]: 10 short-form videos
+            - listitem [ref=e158]:
+              - img [ref=e159]
+              - generic [ref=e161]: 4–5 dedicated creators
+            - listitem [ref=e162]:
+              - img [ref=e163]
+              - generic [ref=e165]: Strategy consultation
+            - listitem [ref=e166]:
+              - img [ref=e167]
+              - generic [ref=e169]: Dedicated project manager
+            - listitem [ref=e170]:
+              - img [ref=e171]
+              - generic [ref=e173]: 2 revision rounds
+            - listitem [ref=e174]:
+              - img [ref=e175]
+              - generic [ref=e177]: Performance report
+          - link "I'm Interested" [ref=e178] [cursor=pointer]:
+            - /url: https://wa.me/60123456789?text=Hi%2C+I'm+interested+in+the+Starter+Package
+            - text: I'm Interested
+            - img [ref=e179]
+        - generic [ref=e182]:
+          - generic [ref=e183]:
+            - heading "Premium Package" [level=3] [ref=e184]
+            - generic [ref=e185]:
+              - generic [ref=e186]: RM 4,500
+              - generic [ref=e187]: RM 12,000
+          - list [ref=e188]:
+            - listitem [ref=e189]:
+              - img [ref=e190]
+              - generic [ref=e192]: 30 short-form videos
+            - listitem [ref=e193]:
+              - img [ref=e194]
+              - generic [ref=e196]: 8–10+ dedicated creators
+            - listitem [ref=e197]:
+              - img [ref=e198]
+              - generic [ref=e200]: Full strategy & calendar
+            - listitem [ref=e201]:
+              - img [ref=e202]
+              - generic [ref=e204]: Dedicated project manager
+            - listitem [ref=e205]:
+              - img [ref=e206]
+              - generic [ref=e208]: Unlimited revisions
+            - listitem [ref=e209]:
+              - img [ref=e210]
+              - generic [ref=e212]: Monthly performance report
+            - listitem [ref=e213]:
+              - img [ref=e214]
+              - generic [ref=e216]: TikTok upload service
+          - link "I'm Interested" [ref=e217] [cursor=pointer]:
+            - /url: https://wa.me/60123456789?text=Hi%2C+I'm+interested+in+the+Premium+Package
+            - text: I'm Interested
+            - img [ref=e218]
+    - generic [ref=e222]:
+      - generic [ref=e223]:
+        - paragraph [ref=e224]: Our Work
+        - heading "Engaging content that converts" [level=2] [ref=e225]
+      - generic [ref=e229]:
+        - blockquote [ref=e232]:
+          - link "F&B Brand Campaign" [ref=e234] [cursor=pointer]:
+            - /url: https://www.tiktok.com/@lospeluches_5/video/7625407953041902878?is_from_webapp=1&sender_device=pc
+        - blockquote [ref=e237]:
+          - link "Beauty Product Launch" [ref=e239] [cursor=pointer]:
+            - /url: https://www.tiktok.com/@nrhzfht/video/7615970225393077524?is_from_webapp=1&sender_device=pc
+        - blockquote [ref=e242]:
+          - link "Lifestyle Review" [ref=e244] [cursor=pointer]:
+            - /url: https://www.tiktok.com/@lospeluches_5/video/7625407953041902878?is_from_webapp=1&sender_device=pc
+        - blockquote [ref=e247]:
+          - link "Home & Living" [ref=e249] [cursor=pointer]:
+            - /url: https://www.tiktok.com/@lospeluches_5/video/7625407953041902878?is_from_webapp=1&sender_device=pc
+        - link "Grocery Haul Grocery Haul" [ref=e251] [cursor=pointer]:
+          - /url: https://www.tiktok.com
+          - img "Grocery Haul" [ref=e252]
+          - generic [ref=e253]: Grocery Haul
+        - link "Flash Sale Promo Flash Sale Promo" [ref=e255] [cursor=pointer]:
+          - /url: https://www.tiktok.com
+          - img "Flash Sale Promo" [ref=e256]
+          - generic [ref=e257]: Flash Sale Promo
+    - generic [ref=e262]:
+      - generic [ref=e263]:
+        - paragraph [ref=e264]: FAQs
+        - heading "Questions we get a lot" [level=2] [ref=e265]
+      - generic [ref=e266]:
+        - generic [ref=e268]:
+          - button "How does the onboarding process work?" [ref=e269]:
+            - generic [ref=e270]: How does the onboarding process work?
+            - img [ref=e272]
+          - paragraph [ref=e275]: After you reach out via WhatsApp, our project manager will schedule a brief strategy call to understand your brand, goals, and target audience. We then match you with the right creators and kick off production within 48 hours.
+        - button "Is this suitable for my type of business?" [ref=e278]:
+          - generic [ref=e279]: Is this suitable for my type of business?
+          - img [ref=e281]
+        - button "Why is this cheaper than hiring in-house?" [ref=e284]:
+          - generic [ref=e285]: Why is this cheaper than hiring in-house?
+          - img [ref=e287]
+        - button "What exactly is UGC content?" [ref=e290]:
+          - generic [ref=e291]: What exactly is UGC content?
+          - img [ref=e293]
+        - button "How long does delivery take?" [ref=e296]:
+          - generic [ref=e297]: How long does delivery take?
+          - img [ref=e299]
+        - button "Do you upload the content to our accounts?" [ref=e302]:
+          - generic [ref=e303]: Do you upload the content to our accounts?
+          - img [ref=e305]
+        - button "Who owns the content rights?" [ref=e308]:
+          - generic [ref=e309]: Who owns the content rights?
+          - img [ref=e311]
+    - generic [ref=e312]:
+      - generic [ref=e313]:
+        - heading "Ready to grow on TikTok?" [level=2] [ref=e314]
+        - paragraph [ref=e315]: Join 1,000+ businesses already creating content with Swifty.
+        - link "Get Started on WhatsApp" [ref=e316] [cursor=pointer]:
+          - /url: https://wa.me/60123456789
+      - generic [ref=e317]:
+        - generic [ref=e318]:
+          - generic [ref=e319]: Top 5 Malaysia
+          - paragraph [ref=e320]: Swifty Agency is a content creation subsidiary of Swifty — Malaysia's leading freelancer platform with 150,000+ users.
+          - paragraph [ref=e321]: Kuala Lumpur, Malaysia
+        - generic [ref=e322]:
+          - generic [ref=e323]:
+            - link [ref=e324] [cursor=pointer]:
+              - /url: https://twitter.com/swiftymy
+              - img [ref=e325]
+            - link [ref=e327] [cursor=pointer]:
+              - /url: https://facebook.com/swiftymy
+              - img [ref=e328]
+            - link [ref=e330] [cursor=pointer]:
+              - /url: https://instagram.com/swiftymy
+              - img [ref=e331]
+            - link [ref=e333] [cursor=pointer]:
+              - /url: https://tiktok.com/@swiftymy
+              - img [ref=e334]
+          - paragraph [ref=e336]: © 2025 Swifty Agency. All rights reserved.
+  - button "Open Next.js Dev Tools" [ref=e342] [cursor=pointer]:
+    - img [ref=e343]

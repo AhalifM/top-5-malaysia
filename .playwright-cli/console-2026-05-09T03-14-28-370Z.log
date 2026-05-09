@@ -98,3 +98,5 @@ Check out some of our available positions at https://careers.tiktok.com/ color: 
 [  310117ms] [ERROR] Failed to load resource: net::ERR_FAILED @ https://mon.tiktokv.com/monitor_browser/collect/batch/?bid=tiktok_pns_web_runtime:0
 [  413935ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2431
 [  414177ms] [LOG] [Fast Refresh] done in 215ms @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2431
+[  621356ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2431
+[  621454ms] [LOG] [Fast Refresh] done in 94ms @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2431
