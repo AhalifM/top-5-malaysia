@@ -5,7 +5,7 @@ import { ArrowRight, Play } from 'lucide-react';
 import Image from 'next/image';
 import { useLang } from '@/context/LanguageContext';
 import type { SiteContent } from '@/lib/content';
-import { t } from '@/lib/content';
+import { imageAdjustmentsToFilter, t } from '@/lib/content';
 
 interface Props {
   content: SiteContent['hero'];
@@ -25,9 +25,9 @@ export default function HeroSection({ content }: Props) {
           preload
           sizes="100vw"
           className="object-cover"
+          style={{ filter: imageAdjustmentsToFilter(content.imageAdjustments) }}
         />
-        <div className="absolute inset-0 bg-[oklch(0.99_0.004_250/0.86)]" />
-        <div className="absolute inset-0 bg-gradient-to-b from-[oklch(0.99_0.004_250/0.45)] via-[oklch(0.96_0.018_248/0.78)] to-background" />
+        <div className="absolute inset-0 bg-gradient-to-b from-background/20 via-background/10 to-background/65" />
       </div>
 
       {/* Animated blue glow */}

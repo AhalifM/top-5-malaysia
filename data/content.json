@@ -29,6 +29,12 @@
       "my": "Henti bersusah payah dengan konten. Biar 20+ kreator kami uruskan semuanya — dari idea hingga penerbitan — sementara anda fokus pada perniagaan."
     },
     "backgroundImage": "https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?w=1920&q=80",
+    "imageAdjustments": {
+      "brightness": 96,
+      "contrast": 100,
+      "saturation": 100,
+      "blur": 0
+    },
     "ctaText": {
       "en": "Get Started on WhatsApp",
       "my": "Mulakan di WhatsApp"

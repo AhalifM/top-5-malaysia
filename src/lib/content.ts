@@ -20,6 +20,13 @@ export interface Brand {
   highlight: string;
 }
 
+export interface ImageAdjustments {
+  brightness: number;
+  contrast: number;
+  saturation: number;
+  blur: number;
+}
+
 export interface ThemePalette {
   id: string;
   name: string;
@@ -121,6 +128,13 @@ export const DEFAULT_THEME: SiteTheme = {
   ...defaultPaletteTheme,
 };
 
+export const DEFAULT_IMAGE_ADJUSTMENTS: ImageAdjustments = {
+  brightness: 100,
+  contrast: 100,
+  saturation: 100,
+  blur: 0,
+};
+
 export function normalizeTheme(theme?: Partial<SiteTheme>): SiteTheme {
   const palette = THEME_PALETTES.find((item) => item.id === theme?.paletteId) ?? THEME_PALETTES[0];
   const { id: _id, name: _name, ...paletteTheme } = palette;
@@ -172,6 +186,24 @@ export function themeToCssVariables(theme?: Partial<SiteTheme>): Record<string, 
   };
 }
 
+export function normalizeImageAdjustments(adjustments?: Partial<ImageAdjustments>): ImageAdjustments {
+  return {
+    ...DEFAULT_IMAGE_ADJUSTMENTS,
+    ...adjustments,
+  };
+}
+
+export function imageAdjustmentsToFilter(adjustments?: Partial<ImageAdjustments>): string {
+  const normalized = normalizeImageAdjustments(adjustments);
+
+  return [
+    `brightness(${normalized.brightness}%)`,
+    `contrast(${normalized.contrast}%)`,
+    `saturate(${normalized.saturation}%)`,
+    `blur(${normalized.blur}px)`,
+  ].join(' ');
+}
+
 export interface PricingPackage {
   id: string;
   name: LocalizedString;
@@ -204,6 +236,7 @@ export interface SiteContent {
     headline: LocalizedString;
     subheading: LocalizedString;
     backgroundImage: string;
+    imageAdjustments: ImageAdjustments;
     ctaText: LocalizedString;
     ctaLink: string;
   };

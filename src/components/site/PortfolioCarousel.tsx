@@ -102,12 +102,12 @@ export default function PortfolioCarousel({ content, lang }: Props) {
                   decoding="async"
                   className="size-full object-cover transition-transform duration-500 group-hover:scale-105"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-background via-background/10 to-transparent opacity-95" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[oklch(0.08_0.01_250/0.96)] via-[oklch(0.08_0.01_250/0.38)] via-38% to-[oklch(0.08_0.01_250/0.08)] opacity-100" />
                 <div className="absolute left-4 right-4 top-4 flex items-center justify-between">
-                  <span className="inline-flex size-10 items-center justify-center rounded-full bg-background/70 text-gold backdrop-blur">
+                  <span className="inline-flex size-10 items-center justify-center rounded-full border border-white/15 bg-black/55 text-gold shadow-lg backdrop-blur">
                     <Play size={18} fill="currentColor" />
                   </span>
-                  <span className="inline-flex size-10 items-center justify-center rounded-full bg-background/70 text-foreground backdrop-blur">
+                  <span className="inline-flex size-10 items-center justify-center rounded-full border border-white/15 bg-black/55 text-white shadow-lg backdrop-blur">
                     <ExternalLink size={17} />
                   </span>
                 </div>
@@ -115,10 +115,10 @@ export default function PortfolioCarousel({ content, lang }: Props) {
                   <p className="text-xs font-semibold uppercase tracking-widest text-gold">
                     TikTok
                   </p>
-                  <h3 className="mt-2 text-lg font-semibold leading-tight text-foreground">
+                  <h3 className="mt-2 text-lg font-semibold leading-tight text-white">
                     {title}
                   </h3>
-                  <div className="mt-3 flex items-center gap-3 text-xs font-semibold text-muted-foreground">
+                  <div className="mt-3 flex items-center gap-3 text-xs font-semibold text-white/75">
                     <span className="inline-flex items-center gap-1.5">
                       <Eye size={14} className="text-gold" />
                       {item.views || '--'}
@@ -128,7 +128,7 @@ export default function PortfolioCarousel({ content, lang }: Props) {
                       {item.likes || '--'}
                     </span>
                   </div>
-                  <p className="mt-3 text-sm text-muted-foreground">{watchLabel}</p>
+                  <p className="mt-3 text-sm text-white/70">{watchLabel}</p>
                 </div>
               </a>
             </SwiperSlide>

@@ -7,12 +7,16 @@ import {
   LayoutDashboard, Image as ImageIcon, Users, Tag, Film,
   HelpCircle, Globe, LogOut, Save, Plus, Trash2, ChevronDown,
   ChevronUp, ExternalLink, CheckCircle, AlertCircle, Loader2, BadgeIcon, RefreshCw,
-  Palette
+  Palette, RotateCcw, SlidersHorizontal
 } from 'lucide-react';
 import {
+  DEFAULT_IMAGE_ADJUSTMENTS,
+  imageAdjustmentsToFilter,
+  normalizeImageAdjustments,
   normalizeTheme,
   themeToCssVariables,
   THEME_PALETTES,
+  type ImageAdjustments,
   type SiteContent,
   type Lang,
   type SiteTheme,
@@ -131,7 +135,7 @@ function BilingualField({
   );
 }
 
-function ImagePreview({ src }: { src: string }) {
+function ImagePreview({ src, adjustments }: { src: string; adjustments?: Partial<ImageAdjustments> }) {
   if (!src) return null;
   return (
     <div className="mt-2">
@@ -139,8 +143,84 @@ function ImagePreview({ src }: { src: string }) {
         src={src}
         alt="Preview"
         className="h-28 w-full object-cover rounded-lg border border-border"
+        style={adjustments ? { filter: imageAdjustmentsToFilter(adjustments) } : undefined}
         onError={(e) => ((e.target as HTMLElement).style.display = 'none')}
       />
+    </div>
+  );
+}
+
+function AdjustmentSlider({
+  label,
+  value,
+  min,
+  max,
+  step = 1,
+  unit = '%',
+  onChange,
+}: {
+  label: string;
+  value: number;
+  min: number;
+  max: number;
+  step?: number;
+  unit?: string;
+  onChange: (value: number) => void;
+}) {
+  return (
+    <label className="grid gap-2 rounded-lg border border-border bg-white p-3">
+      <span className="flex items-center justify-between gap-3 text-xs font-medium uppercase tracking-wide text-muted-foreground">
+        {label}
+        <span className="font-mono text-foreground">{value}{unit}</span>
+      </span>
+      <input
+        type="range"
+        min={min}
+        max={max}
+        step={step}
+        value={value}
+        onChange={(e) => onChange(Number(e.target.value))}
+        className="h-2 w-full cursor-pointer accent-gold"
+      />
+    </label>
+  );
+}
+
+function ImageAdjustmentControls({
+  value,
+  onChange,
+}: {
+  value?: Partial<ImageAdjustments>;
+  onChange: (value: ImageAdjustments) => void;
+}) {
+  const adjustments = normalizeImageAdjustments(value);
+
+  function update(key: keyof ImageAdjustments, nextValue: number) {
+    onChange({ ...adjustments, [key]: nextValue });
+  }
+
+  return (
+    <div className="rounded-xl border border-border bg-surface/50 p-4">
+      <div className="mb-4 flex items-center justify-between gap-3">
+        <div className="flex items-center gap-2 text-sm font-semibold text-foreground">
+          <SlidersHorizontal size={16} className="text-gold" />
+          Image Adjustments
+        </div>
+        <button
+          type="button"
+          onClick={() => onChange(DEFAULT_IMAGE_ADJUSTMENTS)}
+          className="inline-flex items-center gap-1.5 rounded-lg border border-border bg-white px-3 py-2 text-xs font-medium text-muted-foreground transition-colors hover:border-gold/50 hover:text-foreground"
+        >
+          <RotateCcw size={13} />
+          Reset
+        </button>
+      </div>
+      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+        <AdjustmentSlider label="Brightness" value={adjustments.brightness} min={40} max={160} onChange={(v) => update('brightness', v)} />
+        <AdjustmentSlider label="Contrast" value={adjustments.contrast} min={40} max={180} onChange={(v) => update('contrast', v)} />
+        <AdjustmentSlider label="Saturation" value={adjustments.saturation} min={0} max={200} onChange={(v) => update('saturation', v)} />
+        <AdjustmentSlider label="Blur" value={adjustments.blur} min={0} max={12} unit="px" onChange={(v) => update('blur', v)} />
+      </div>
     </div>
   );
 }
@@ -529,8 +609,12 @@ export default function AdminPage() {
                     <Field label="Background Image URL" value={content.hero.backgroundImage}
                       placeholder="https://..."
                       onChange={(v) => updateContent('hero', { ...content.hero, backgroundImage: v })} />
-                    <ImagePreview src={content.hero.backgroundImage} />
+                    <ImagePreview src={content.hero.backgroundImage} adjustments={content.hero.imageAdjustments} />
                   </div>
+                  <ImageAdjustmentControls
+                    value={content.hero.imageAdjustments}
+                    onChange={(imageAdjustments) => updateContent('hero', { ...content.hero, imageAdjustments })}
+                  />
                   <BilingualField label="CTA Button Text" value={content.hero.ctaText}
                     onChange={(v) => updateContent('hero', { ...content.hero, ctaText: v })} />
                   <Field label="CTA Link (WhatsApp or URL)" value={content.hero.ctaLink}
