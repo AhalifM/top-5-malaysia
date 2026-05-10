@@ -58,7 +58,7 @@ export default function PortfolioCarousel({ content, lang }: Props) {
   const watchLabel = lang === 'en' ? 'Watch on TikTok' : 'Tonton di TikTok';
 
   return (
-    <div className="overflow-hidden rounded-3xl border border-border bg-card/20 px-2 py-8 md:px-8">
+    <div className="overflow-hidden rounded-lg border border-gold/18 bg-[linear-gradient(180deg,color-mix(in_oklch,var(--surface)_82%,black),color-mix(in_oklch,var(--background)_96%,black))] px-2 py-8 shadow-[0_30px_120px_color-mix(in_oklch,var(--gold)_8%,transparent)] md:px-8">
       <style>{carouselCss}</style>
       <Swiper
         className="tiktok-portfolio-carousel"
@@ -93,7 +93,7 @@ export default function PortfolioCarousel({ content, lang }: Props) {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={`${watchLabel}: ${title}`}
-                className="group relative block aspect-[9/16] overflow-hidden rounded-2xl border border-border bg-card"
+                className="group relative block aspect-[9/16] overflow-hidden rounded-lg border border-gold/20 bg-card"
               >
                 <img
                   src={item.thumbnail}

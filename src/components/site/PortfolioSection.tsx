@@ -51,19 +51,25 @@ export default function PortfolioSection({ content }: Props) {
   }, [shouldLoadCarousel]);
 
   return (
-    <section id="portfolio" className="py-28 px-6 relative">
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gold/20 to-transparent" />
+    <section id="portfolio" className="relative overflow-hidden px-6 py-28">
+      <div className="absolute left-0 right-0 top-0 h-px bg-gradient-to-r from-transparent via-gold/25 to-transparent" />
+      <div className="absolute inset-x-0 top-24 h-96 bg-[radial-gradient(circle_at_50%_0%,color-mix(in_oklch,var(--gold)_12%,transparent),transparent_60%)]" />
 
-      <div className="max-w-7xl mx-auto">
-        <AnimateIn className="text-center mb-16">
-          <p className="text-xs font-semibold tracking-widest uppercase text-gold mb-3">
+      <div className="relative mx-auto max-w-7xl">
+        <AnimateIn className="mb-16 text-center">
+          <p className="mb-3 text-xs font-semibold uppercase tracking-[0.24em] text-gold">
             {lang === 'en' ? 'Our Work' : 'Kerja Kami'}
           </p>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight max-w-2xl mx-auto">
+          <h2 className="mx-auto max-w-3xl text-4xl font-black tracking-tight sm:text-5xl md:text-6xl">
             {lang === 'en'
               ? 'Engaging content that converts'
               : 'Konten menarik yang menukar pengunjung'}
           </h2>
+          <p className="mx-auto mt-5 max-w-xl text-muted-foreground">
+            {lang === 'en'
+              ? 'Real vertical content, built to feel native on the feed.'
+              : 'Konten menegak sebenar, dibina supaya terasa natural dalam feed.'}
+          </p>
         </AnimateIn>
 
         <AnimateIn className="min-h-[560px]">

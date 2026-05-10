@@ -1,19 +1,19 @@
 {
   "theme": {
-    "paletteId": "teal-clean",
-    "accent": "#0d9488",
-    "accentLight": "#2dd4bf",
-    "accentDark": "#0f766e",
-    "accentMuted": "#5b7f7a",
-    "background": "#f7fffd",
-    "surface": "#eafffa",
-    "surface2": "#ccfbf1",
-    "foreground": "#102a2a",
-    "card": "#ffffff",
-    "muted": "#dff7f2",
-    "mutedForeground": "#4d6867",
-    "border": "#b8e7df",
-    "input": "#effdfa"
+    "paletteId": "swifty-noir",
+    "accent": "#d4af37",
+    "accentLight": "#f1d675",
+    "accentDark": "#9f7617",
+    "accentMuted": "#9a8550",
+    "background": "#070909",
+    "surface": "#101413",
+    "surface2": "#1a211f",
+    "foreground": "#f5f1e7",
+    "card": "#0d1110",
+    "muted": "#171d1b",
+    "mutedForeground": "#b7ad9a",
+    "border": "#322d22",
+    "input": "#121716"
   },
   "brand": {
     "name": "Top 5 Malaysia",

@@ -15,8 +15,11 @@ export default function Home() {
   const content = readContent();
 
   return (
-    <main style={themeToCssVariables(content.theme)}>
-      <Navbar brand={content.brand} />
+    <main
+      className="relative overflow-hidden bg-background text-foreground"
+      style={themeToCssVariables(content.theme)}
+    >
+      <Navbar brand={content.brand} ctaLink={content.hero.ctaLink} ctaText={content.hero.ctaText} />
       <HeroSection content={content.hero} />
       <BenefitsSection content={content.benefits} />
       <CompanySection content={content.company} />

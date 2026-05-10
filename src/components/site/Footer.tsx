@@ -48,13 +48,15 @@ export default function Footer({ brand, content, ctaLink, ctaText }: Props) {
   const { lang } = useLang();
 
   return (
-    <footer className="relative border-t border-border">
+    <footer className="relative overflow-hidden border-t border-gold/15">
       {/* CTA band */}
-      <div className="bg-gold px-6 py-16 text-center">
-        <h2 className="text-3xl sm:text-4xl font-bold text-primary-foreground mb-4 tracking-tight">
+      <div className="relative bg-[linear-gradient(135deg,var(--gold),var(--gold-dark))] px-6 py-20 text-center text-primary-foreground">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,color-mix(in_oklch,white_22%,transparent),transparent_45%)]" />
+        <div className="relative">
+        <h2 className="mb-4 text-4xl font-black tracking-tight sm:text-5xl">
           {lang === 'en' ? 'Ready to grow on TikTok?' : 'Bersedia untuk berkembang di TikTok?'}
         </h2>
-        <p className="text-primary-foreground/70 mb-8 max-w-md mx-auto">
+        <p className="mx-auto mb-8 max-w-md text-primary-foreground/75">
           {lang === 'en'
             ? 'Join 1,000+ businesses already creating content with Swifty.'
             : 'Sertai 1,000+ perniagaan yang sudah mencipta konten bersama Swifty.'}
@@ -63,14 +65,15 @@ export default function Footer({ brand, content, ctaLink, ctaText }: Props) {
           href={ctaLink}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 bg-white text-gold font-semibold px-8 py-3.5 rounded-full hover:bg-blue-50 transition-all duration-300"
+          className="inline-flex items-center gap-2 rounded-full bg-background px-8 py-3.5 font-bold text-gold transition-all duration-300 hover:bg-card"
         >
           {t(ctaText, lang)}
         </a>
+        </div>
       </div>
 
       {/* Footer bottom */}
-      <div className="max-w-7xl mx-auto px-6 py-12 flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
+      <div className="mx-auto flex max-w-7xl flex-col items-start justify-between gap-8 px-6 py-12 md:flex-row md:items-center">
         <div className="max-w-sm">
           <BrandWordmark brand={brand} className="text-xl mb-3 block" />
           <p className="text-sm text-muted-foreground leading-relaxed">{t(content.text, lang)}</p>
@@ -81,25 +84,25 @@ export default function Footer({ brand, content, ctaLink, ctaText }: Props) {
           <div className="flex items-center gap-3">
             {content.social.twitter && (
               <a href={content.social.twitter} target="_blank" rel="noopener noreferrer"
-                className="w-9 h-9 rounded-full border border-border flex items-center justify-center text-muted-foreground hover:text-gold hover:border-gold transition-all duration-200">
+                className="flex h-9 w-9 items-center justify-center rounded-full border border-gold/15 text-muted-foreground transition-all duration-200 hover:border-gold hover:text-gold">
                 <XIcon size={15} />
               </a>
             )}
             {content.social.facebook && (
               <a href={content.social.facebook} target="_blank" rel="noopener noreferrer"
-                className="w-9 h-9 rounded-full border border-border flex items-center justify-center text-muted-foreground hover:text-gold hover:border-gold transition-all duration-200">
+                className="flex h-9 w-9 items-center justify-center rounded-full border border-gold/15 text-muted-foreground transition-all duration-200 hover:border-gold hover:text-gold">
                 <FacebookIcon size={15} />
               </a>
             )}
             {content.social.instagram && (
               <a href={content.social.instagram} target="_blank" rel="noopener noreferrer"
-                className="w-9 h-9 rounded-full border border-border flex items-center justify-center text-muted-foreground hover:text-gold hover:border-gold transition-all duration-200">
+                className="flex h-9 w-9 items-center justify-center rounded-full border border-gold/15 text-muted-foreground transition-all duration-200 hover:border-gold hover:text-gold">
                 <InstagramIcon size={15} />
               </a>
             )}
             {content.social.tiktok && (
               <a href={content.social.tiktok} target="_blank" rel="noopener noreferrer"
-                className="w-9 h-9 rounded-full border border-border flex items-center justify-center text-muted-foreground hover:text-gold hover:border-gold transition-all duration-200">
+                className="flex h-9 w-9 items-center justify-center rounded-full border border-gold/15 text-muted-foreground transition-all duration-200 hover:border-gold hover:text-gold">
                 <TikTokIcon size={15} />
               </a>
             )}
