@@ -35,11 +35,11 @@ export default function BenefitsSection({ content }: Props) {
                 transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
                 className="group relative h-full rounded-2xl border border-border bg-card p-7 flex flex-col gap-5 overflow-hidden cursor-default"
               >
-                {/* Hover gold shimmer */}
+                {/* Hover blue shimmer */}
                 <motion.div
                   className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
                   style={{
-                    background: 'radial-gradient(circle at 50% 0%, oklch(0.76 0.12 85 / 0.07) 0%, transparent 70%)',
+                    background: 'radial-gradient(circle at 50% 0%, color-mix(in oklch, var(--gold) 8%, transparent) 0%, transparent 70%)',
                   }}
                 />
                 <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gold/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
@@ -57,7 +57,7 @@ export default function BenefitsSection({ content }: Props) {
                     loading="lazy"
                     decoding="async"
                     className="w-6 h-6 object-contain"
-                    style={{ filter: 'invert(1) sepia(1) saturate(2) hue-rotate(5deg)' }}
+                    style={{ filter: 'brightness(0) saturate(100%) invert(38%) sepia(95%) saturate(1757%) hue-rotate(207deg) brightness(95%) contrast(96%)' }}
                     onError={(e) => {
                       (e.target as HTMLImageElement).style.display = 'none';
                     }}

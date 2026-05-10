@@ -51,10 +51,10 @@ export default function Footer({ brand, content, ctaLink, ctaText }: Props) {
     <footer className="relative border-t border-border">
       {/* CTA band */}
       <div className="bg-gold px-6 py-16 text-center">
-        <h2 className="text-3xl sm:text-4xl font-bold text-[oklch(0.09_0.008_80)] mb-4 tracking-tight">
+        <h2 className="text-3xl sm:text-4xl font-bold text-primary-foreground mb-4 tracking-tight">
           {lang === 'en' ? 'Ready to grow on TikTok?' : 'Bersedia untuk berkembang di TikTok?'}
         </h2>
-        <p className="text-[oklch(0.09_0.008_80)]/70 mb-8 max-w-md mx-auto">
+        <p className="text-primary-foreground/70 mb-8 max-w-md mx-auto">
           {lang === 'en'
             ? 'Join 1,000+ businesses already creating content with Swifty.'
             : 'Sertai 1,000+ perniagaan yang sudah mencipta konten bersama Swifty.'}
@@ -63,7 +63,7 @@ export default function Footer({ brand, content, ctaLink, ctaText }: Props) {
           href={ctaLink}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 bg-[oklch(0.09_0.008_80)] text-gold font-semibold px-8 py-3.5 rounded-full hover:bg-[oklch(0.12_0.008_80)] transition-all duration-300"
+          className="inline-flex items-center gap-2 bg-white text-gold font-semibold px-8 py-3.5 rounded-full hover:bg-blue-50 transition-all duration-300"
         >
           {t(ctaText, lang)}
         </a>

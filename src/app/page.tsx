@@ -7,6 +7,7 @@ import PricingSection from '@/components/site/PricingSection';
 import PortfolioSection from '@/components/site/PortfolioSection';
 import FAQSection from '@/components/site/FAQSection';
 import Footer from '@/components/site/Footer';
+import { themeToCssVariables } from '@/lib/content';
 
 export const dynamic = 'force-dynamic';
 
@@ -14,7 +15,7 @@ export default function Home() {
   const content = readContent();
 
   return (
-    <main>
+    <main style={themeToCssVariables(content.theme)}>
       <Navbar brand={content.brand} />
       <HeroSection content={content.hero} />
       <BenefitsSection content={content.benefits} />

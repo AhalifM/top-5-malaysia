@@ -26,15 +26,15 @@ export default function HeroSection({ content }: Props) {
           sizes="100vw"
           className="object-cover"
         />
-        <div className="absolute inset-0 bg-[oklch(0.09_0.008_80/0.82)]" />
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[oklch(0.09_0.008_80)]" />
+        <div className="absolute inset-0 bg-[oklch(0.99_0.004_250/0.86)]" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[oklch(0.99_0.004_250/0.45)] via-[oklch(0.96_0.018_248/0.78)] to-background" />
       </div>
 
-      {/* Animated gold orb */}
+      {/* Animated blue glow */}
       <motion.div
         className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full pointer-events-none z-0"
         style={{
-          background: 'radial-gradient(circle, oklch(0.76 0.12 85 / 0.08) 0%, transparent 70%)',
+          background: 'radial-gradient(circle, color-mix(in oklch, var(--gold) 12%, transparent) 0%, transparent 70%)',
         }}
         animate={{
           scale: [1, 1.1, 1],
@@ -92,7 +92,7 @@ export default function HeroSection({ content }: Props) {
             href={content.ctaLink}
             target="_blank"
             rel="noopener noreferrer"
-            className="group inline-flex items-center gap-2 bg-gold text-[oklch(0.09_0.008_80)] font-semibold px-8 py-3.5 rounded-full hover:bg-gold-light transition-all duration-300 gold-glow"
+            className="group inline-flex items-center gap-2 bg-gold text-primary-foreground font-semibold px-8 py-3.5 rounded-full hover:bg-gold-light transition-all duration-300 gold-glow"
           >
             {t(content.ctaText, lang)}
             <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform duration-200" />

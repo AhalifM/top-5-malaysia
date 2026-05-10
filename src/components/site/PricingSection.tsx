@@ -37,13 +37,13 @@ export default function PricingSection({ content }: Props) {
                 transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
                 className={`relative rounded-2xl p-8 flex flex-col h-full ${
                   pkg.featured
-                    ? 'bg-gold text-[oklch(0.09_0.008_80)] gold-glow'
+                    ? 'bg-gold text-primary-foreground gold-glow'
                     : 'bg-card border border-border'
                 }`}
               >
                 {pkg.featured && (
                   <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-                    <span className="bg-[oklch(0.09_0.008_80)] text-gold text-xs font-bold tracking-widest uppercase rounded-full px-4 py-1">
+                    <span className="bg-white text-gold text-xs font-bold tracking-widest uppercase rounded-full px-4 py-1">
                       {lang === 'en' ? 'Most Popular' : 'Paling Popular'}
                     </span>
                   </div>
@@ -83,8 +83,8 @@ export default function PricingSection({ content }: Props) {
                   rel="noopener noreferrer"
                   className={`group flex items-center justify-center gap-2 rounded-full px-6 py-3.5 font-semibold text-sm transition-all duration-300 ${
                     pkg.featured
-                      ? 'bg-[oklch(0.09_0.008_80)] text-gold hover:bg-[oklch(0.12_0.008_80)]'
-                      : 'bg-gold/10 text-gold border border-gold/30 hover:bg-gold hover:text-[oklch(0.09_0.008_80)]'
+                      ? 'bg-white text-gold hover:bg-blue-50'
+                      : 'bg-gold/10 text-gold border border-gold/30 hover:bg-gold hover:text-primary-foreground'
                   }`}
                 >
                   {lang === 'en' ? "I'm Interested" : 'Saya Berminat'}

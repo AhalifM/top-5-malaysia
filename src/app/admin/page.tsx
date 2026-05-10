@@ -6,14 +6,23 @@ import { motion, AnimatePresence } from 'framer-motion';
 import {
   LayoutDashboard, Image as ImageIcon, Users, Tag, Film,
   HelpCircle, Globe, LogOut, Save, Plus, Trash2, ChevronDown,
-  ChevronUp, ExternalLink, CheckCircle, AlertCircle, Loader2, BadgeIcon, RefreshCw
+  ChevronUp, ExternalLink, CheckCircle, AlertCircle, Loader2, BadgeIcon, RefreshCw,
+  Palette
 } from 'lucide-react';
-import type { SiteContent, Lang } from '@/lib/content';
+import {
+  normalizeTheme,
+  themeToCssVariables,
+  THEME_PALETTES,
+  type SiteContent,
+  type Lang,
+  type SiteTheme,
+} from '@/lib/content';
 import BrandWordmark from '@/components/site/BrandWordmark';
 
-type Section = 'brand' | 'hero' | 'benefits' | 'company' | 'pricing' | 'portfolio' | 'faq' | 'footer';
+type Section = 'settings' | 'brand' | 'hero' | 'benefits' | 'company' | 'pricing' | 'portfolio' | 'faq' | 'footer';
 
 const sectionMeta: { key: Section; label: string; icon: React.ReactNode }[] = [
+  { key: 'settings', label: 'Settings', icon: <Palette size={16} /> },
   { key: 'brand', label: 'Brand', icon: <BadgeIcon size={16} /> },
   { key: 'hero', label: 'Hero', icon: <ImageIcon size={16} /> },
   { key: 'benefits', label: 'Benefits', icon: <LayoutDashboard size={16} /> },
@@ -30,7 +39,7 @@ function Field({
   label: string; value: string; onChange: (v: string) => void;
   placeholder?: string; type?: string; multiline?: boolean;
 }) {
-  const base = "w-full bg-[oklch(0.12_0.008_80)] border border-border rounded-lg px-3 py-2.5 text-sm text-foreground placeholder:text-muted-foreground/40 focus:outline-none focus:border-gold/50 transition-colors";
+  const base = "w-full bg-white border border-border rounded-lg px-3 py-2.5 text-sm text-foreground placeholder:text-muted-foreground/40 focus:outline-none focus:border-gold/50 transition-colors";
   return (
     <div className="flex flex-col gap-1.5">
       <label className="text-xs font-medium text-muted-foreground uppercase tracking-wide">{label}</label>
@@ -55,6 +64,36 @@ function Field({
   );
 }
 
+function ColorField({
+  label,
+  value,
+  onChange,
+}: {
+  label: string;
+  value: string;
+  onChange: (v: string) => void;
+}) {
+  return (
+    <label className="flex items-center gap-3 rounded-xl border border-border bg-card p-3">
+      <span
+        className="size-10 shrink-0 rounded-lg border border-border"
+        style={{ backgroundColor: value }}
+      />
+      <span className="min-w-0 flex-1">
+        <span className="block text-xs font-medium uppercase tracking-wide text-muted-foreground">{label}</span>
+        <span className="block font-mono text-xs text-muted-foreground/70">{value}</span>
+      </span>
+      <input
+        type="color"
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        className="size-10 cursor-pointer rounded-lg border border-border bg-transparent p-1"
+        aria-label={label}
+      />
+    </label>
+  );
+}
+
 function BilingualField({
   label, value, onChange, multiline = false
 }: {
@@ -75,14 +114,14 @@ function BilingualField({
                 value={value[lang]}
                 onChange={(e) => onChange({ ...value, [lang]: e.target.value })}
                 rows={3}
-                className="w-full bg-[oklch(0.12_0.008_80)] border border-border rounded-lg px-3 py-2.5 text-sm text-foreground placeholder:text-muted-foreground/40 focus:outline-none focus:border-gold/50 transition-colors resize-none"
+                className="w-full bg-white border border-border rounded-lg px-3 py-2.5 text-sm text-foreground placeholder:text-muted-foreground/40 focus:outline-none focus:border-gold/50 transition-colors resize-none"
               />
             ) : (
               <input
                 type="text"
                 value={value[lang]}
                 onChange={(e) => onChange({ ...value, [lang]: e.target.value })}
-                className="w-full bg-[oklch(0.12_0.008_80)] border border-border rounded-lg px-3 py-2.5 text-sm text-foreground placeholder:text-muted-foreground/40 focus:outline-none focus:border-gold/50 transition-colors"
+                className="w-full bg-white border border-border rounded-lg px-3 py-2.5 text-sm text-foreground placeholder:text-muted-foreground/40 focus:outline-none focus:border-gold/50 transition-colors"
               />
             )}
           </div>
@@ -164,6 +203,25 @@ export default function AdminPage() {
     setContent((prev) => prev ? { ...prev, [key]: value } : prev);
   }
 
+  function updateTheme(value: Partial<SiteTheme>) {
+    setContent((prev) => prev ? {
+      ...prev,
+      theme: normalizeTheme({ ...prev.theme, ...value }),
+    } : prev);
+  }
+
+  function selectPalette(paletteId: string) {
+    const palette = THEME_PALETTES.find((item) => item.id === paletteId);
+    if (!palette) return;
+
+    const { id, name: _name, ...theme } = palette;
+    void _name;
+    updateContent('theme', {
+      paletteId: id,
+      ...theme,
+    });
+  }
+
   useEffect(() => {
     const timers = thumbnailTimers.current;
 
@@ -239,9 +297,12 @@ export default function AdminPage() {
   const activeMeta = sectionMeta.find((s) => s.key === activeSection)!;
 
   return (
-    <div className="min-h-screen bg-background flex flex-col md:flex-row">
+    <div
+      className="min-h-screen bg-background flex flex-col md:flex-row"
+      style={themeToCssVariables(content.theme)}
+    >
       {/* Sidebar */}
-      <aside className="hidden md:flex flex-col w-60 shrink-0 border-r border-border bg-[oklch(0.11_0.008_80)] sticky top-0 h-screen">
+      <aside className="hidden md:flex flex-col w-60 shrink-0 border-r border-border bg-surface sticky top-0 h-screen">
         <div className="px-5 py-5 border-b border-border">
           <div className="text-lg">
             <BrandWordmark brand={content.brand} mutedClassName="text-foreground/70" />
@@ -286,7 +347,7 @@ export default function AdminPage() {
       </aside>
 
       {/* Mobile top bar */}
-      <div className="md:hidden sticky top-0 z-20 bg-[oklch(0.11_0.008_80)] border-b border-border px-4 py-3 flex items-center justify-between">
+      <div className="md:hidden sticky top-0 z-20 bg-surface border-b border-border px-4 py-3 flex items-center justify-between">
         <BrandWordmark brand={content.brand} className="text-sm" mutedClassName="text-foreground/70" />
         <button
           onClick={() => setMobileNavOpen(!mobileNavOpen)}
@@ -303,7 +364,7 @@ export default function AdminPage() {
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            className="md:hidden overflow-hidden bg-[oklch(0.11_0.008_80)] border-b border-border z-10"
+            className="md:hidden overflow-hidden bg-surface border-b border-border z-10"
           >
             <div className="px-3 py-2 flex flex-col gap-1">
               {sectionMeta.map((s) => (
@@ -345,7 +406,7 @@ export default function AdminPage() {
             <button
               onClick={save}
               disabled={saving}
-              className="flex items-center gap-2 bg-gold text-[oklch(0.09_0.008_80)] font-semibold text-sm px-5 py-2 rounded-lg hover:bg-gold-light transition-all disabled:opacity-60"
+              className="flex items-center gap-2 bg-gold text-primary-foreground font-semibold text-sm px-5 py-2 rounded-lg hover:bg-gold-light transition-all disabled:opacity-60"
             >
               {saving ? <Loader2 size={14} className="animate-spin" /> : <Save size={14} />}
               Save
@@ -364,6 +425,77 @@ export default function AdminPage() {
               transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
               className="max-w-3xl mx-auto flex flex-col gap-8"
             >
+              {/* ---- SETTINGS ---- */}
+              {activeSection === 'settings' && (
+                <div className="flex flex-col gap-6">
+                  <div className="border border-border rounded-xl p-5 bg-card">
+                    <p className="text-xs font-semibold text-muted-foreground uppercase tracking-widest mb-4">Color Palettes</p>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      {THEME_PALETTES.map((palette) => (
+                        <button
+                          key={palette.id}
+                          type="button"
+                          onClick={() => selectPalette(palette.id)}
+                          className={`rounded-xl border p-4 text-left transition-all ${
+                            content.theme.paletteId === palette.id
+                              ? 'border-gold bg-gold/10'
+                              : 'border-border bg-background hover:border-gold/40'
+                          }`}
+                        >
+                          <span className="mb-3 flex items-center gap-2">
+                            {[palette.accent, palette.background, palette.surface2, palette.foreground].map((color) => (
+                              <span
+                                key={color}
+                                className="size-6 rounded-full border border-border"
+                                style={{ backgroundColor: color }}
+                              />
+                            ))}
+                          </span>
+                          <span className="block text-sm font-semibold text-foreground">{palette.name}</span>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="border border-border rounded-xl p-5 bg-card">
+                    <p className="text-xs font-semibold text-muted-foreground uppercase tracking-widest mb-4">Custom Colors</p>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      <ColorField label="Primary" value={content.theme.accent}
+                        onChange={(v) => updateTheme({ paletteId: 'custom', accent: v, accentDark: v, accentMuted: v })} />
+                      <ColorField label="Primary Light" value={content.theme.accentLight}
+                        onChange={(v) => updateTheme({ paletteId: 'custom', accentLight: v })} />
+                      <ColorField label="Background" value={content.theme.background}
+                        onChange={(v) => updateTheme({ paletteId: 'custom', background: v })} />
+                      <ColorField label="Surface" value={content.theme.surface}
+                        onChange={(v) => updateTheme({ paletteId: 'custom', surface: v, muted: v })} />
+                      <ColorField label="Text" value={content.theme.foreground}
+                        onChange={(v) => updateTheme({ paletteId: 'custom', foreground: v })} />
+                      <ColorField label="Muted Text" value={content.theme.mutedForeground}
+                        onChange={(v) => updateTheme({ paletteId: 'custom', mutedForeground: v })} />
+                      <ColorField label="Border" value={content.theme.border}
+                        onChange={(v) => updateTheme({ paletteId: 'custom', border: v })} />
+                      <ColorField label="Cards" value={content.theme.card}
+                        onChange={(v) => updateTheme({ paletteId: 'custom', card: v, input: v })} />
+                    </div>
+                  </div>
+
+                  <div className="rounded-xl border border-border bg-card p-5">
+                    <p className="text-xs font-semibold text-muted-foreground uppercase tracking-widest mb-4">Preview</p>
+                    <div className="rounded-xl border border-border bg-background p-5">
+                      <BrandWordmark brand={content.brand} className="mb-4 block text-2xl" />
+                      <div className="flex flex-wrap items-center gap-3">
+                        <span className="rounded-full bg-gold px-4 py-2 text-sm font-semibold text-primary-foreground gold-glow">
+                          Primary Button
+                        </span>
+                        <span className="rounded-full border border-gold/30 bg-gold/10 px-4 py-2 text-sm font-semibold text-gold">
+                          Secondary Button
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+
               {/* ---- BRAND ---- */}
               {activeSection === 'brand' && (
                 <div className="flex flex-col gap-6">
@@ -430,7 +562,7 @@ export default function AdminPage() {
                           }} />
                         {b.icon && (
                           <img src={b.icon} alt="" className="mt-2 h-8 w-8 object-contain"
-                            style={{ filter: 'invert(1)' }}
+                            style={{ filter: 'brightness(0) saturate(100%) invert(38%) sepia(95%) saturate(1757%) hue-rotate(207deg) brightness(95%) contrast(96%)' }}
                             onError={(e) => ((e.target as HTMLElement).style.display = 'none')} />
                         )}
                       </div>
@@ -490,14 +622,14 @@ export default function AdminPage() {
                                 logos[i] = { ...logo, src: e.target.value };
                                 updateContent('company', { ...content.company, logos });
                               }}
-                              className="bg-[oklch(0.12_0.008_80)] border border-border rounded-lg px-3 py-2 text-sm text-foreground focus:outline-none focus:border-gold/50 transition-colors" />
+                              className="bg-white border border-border rounded-lg px-3 py-2 text-sm text-foreground focus:outline-none focus:border-gold/50 transition-colors" />
                             <input type="text" value={logo.alt} placeholder="Brand name"
                               onChange={(e) => {
                                 const logos = [...content.company.logos];
                                 logos[i] = { ...logo, alt: e.target.value };
                                 updateContent('company', { ...content.company, logos });
                               }}
-                              className="bg-[oklch(0.12_0.008_80)] border border-border rounded-lg px-3 py-2 text-sm text-foreground focus:outline-none focus:border-gold/50 transition-colors" />
+                              className="bg-white border border-border rounded-lg px-3 py-2 text-sm text-foreground focus:outline-none focus:border-gold/50 transition-colors" />
                           </div>
                           <button onClick={() => updateContent('company', { ...content.company, logos: content.company.logos.filter((_, idx) => idx !== i) })}
                             className="text-muted-foreground hover:text-red-400 transition-colors shrink-0">
@@ -531,7 +663,7 @@ export default function AdminPage() {
                                 updated[i] = { ...pkg, featured: e.target.checked };
                                 updateContent('pricing', updated);
                               }}
-                              className="accent-[oklch(0.76_0.12_85)]" />
+                              className="accent-[oklch(0.57_0.20_255)]" />
                             Featured
                           </label>
                           <button onClick={() => updateContent('pricing', content.pricing.filter((_, idx) => idx !== i))}
@@ -567,7 +699,7 @@ export default function AdminPage() {
                                       u[i] = { ...pkg, features };
                                       updateContent('pricing', u);
                                     }}
-                                    className="flex-1 bg-[oklch(0.12_0.008_80)] border border-border rounded-lg px-3 py-1.5 text-sm text-foreground focus:outline-none focus:border-gold/50 transition-colors" />
+                                    className="flex-1 bg-white border border-border rounded-lg px-3 py-1.5 text-sm text-foreground focus:outline-none focus:border-gold/50 transition-colors" />
                                   <button onClick={() => {
                                     const u = [...content.pricing];
                                     const features = { ...pkg.features };

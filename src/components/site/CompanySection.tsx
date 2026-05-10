@@ -30,7 +30,7 @@ export default function CompanySection({ content }: Props) {
               className="w-full aspect-[4/3] object-cover rounded-2xl"
             />
             {/* Stat badge */}
-            <div className="absolute -bottom-6 -right-4 bg-gold text-[oklch(0.09_0.008_80)] rounded-2xl px-6 py-4 gold-glow">
+            <div className="absolute -bottom-6 -right-4 bg-gold text-primary-foreground rounded-2xl px-6 py-4 gold-glow">
               <div className="text-3xl font-bold leading-none">{content.stat}</div>
               <div className="text-xs font-semibold mt-1 opacity-70">
                 {t(content.statLabel, lang)}
@@ -65,7 +65,7 @@ export default function CompanySection({ content }: Props) {
                   loading="lazy"
                   decoding="async"
                   className="h-6 object-contain opacity-40 hover:opacity-80 transition-opacity duration-300 grayscale hover:grayscale-0"
-                  style={{ filter: 'invert(1) grayscale(1)' }}
+                  style={{ filter: 'grayscale(1)' }}
                   onError={(e) => {
                     const parent = (e.target as HTMLElement).parentElement;
                     if (parent) {

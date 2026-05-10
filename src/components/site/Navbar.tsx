@@ -48,7 +48,7 @@ export default function Navbar({ brand }: Props) {
       transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         scrolled
-          ? 'bg-[oklch(0.09_0.008_80/0.92)] backdrop-blur-xl border-b border-[oklch(0.26_0.012_80)]'
+          ? 'bg-background/90 backdrop-blur-xl border-b border-border'
           : 'bg-transparent'
       }`}
     >
@@ -101,7 +101,7 @@ export default function Navbar({ brand }: Props) {
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-            className="md:hidden overflow-hidden bg-[oklch(0.09_0.008_80/0.97)] backdrop-blur-xl border-b border-border"
+            className="md:hidden overflow-hidden bg-background/95 backdrop-blur-xl border-b border-border"
           >
             <nav className="px-6 py-4 flex flex-col gap-4">
               {links.map((link) => (

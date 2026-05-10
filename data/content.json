@@ -1,4 +1,20 @@
 {
+  "theme": {
+    "paletteId": "teal-clean",
+    "accent": "#0d9488",
+    "accentLight": "#2dd4bf",
+    "accentDark": "#0f766e",
+    "accentMuted": "#5b7f7a",
+    "background": "#f7fffd",
+    "surface": "#eafffa",
+    "surface2": "#ccfbf1",
+    "foreground": "#102a2a",
+    "card": "#ffffff",
+    "muted": "#dff7f2",
+    "mutedForeground": "#4d6867",
+    "border": "#b8e7df",
+    "input": "#effdfa"
+  },
   "brand": {
     "name": "Top 5 Malaysia",
     "highlight": "Top 5"

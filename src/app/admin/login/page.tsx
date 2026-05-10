@@ -77,7 +77,7 @@ export default function AdminLoginPage() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-gold text-[oklch(0.09_0.008_80)] font-semibold py-3 rounded-xl hover:bg-gold-light transition-all duration-200 disabled:opacity-50"
+            className="w-full bg-gold text-primary-foreground font-semibold py-3 rounded-xl hover:bg-gold-light transition-all duration-200 disabled:opacity-50"
           >
             {loading ? 'Signing in...' : 'Sign In'}
           </button>
