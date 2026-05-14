@@ -43,7 +43,7 @@ function Field({
   label: string; value: string; onChange: (v: string) => void;
   placeholder?: string; type?: string; multiline?: boolean;
 }) {
-  const base = "w-full bg-white border border-border rounded-lg px-3 py-2.5 text-sm text-foreground placeholder:text-muted-foreground/40 focus:outline-none focus:border-gold/50 transition-colors";
+  const base = "w-full bg-input border border-border rounded-lg px-3 py-2.5 text-sm text-foreground placeholder:text-muted-foreground/40 focus:outline-none focus:border-gold/50 transition-colors";
   return (
     <div className="flex flex-col gap-1.5">
       <label className="text-xs font-medium text-muted-foreground uppercase tracking-wide">{label}</label>
@@ -118,14 +118,14 @@ function BilingualField({
                 value={value[lang]}
                 onChange={(e) => onChange({ ...value, [lang]: e.target.value })}
                 rows={3}
-                className="w-full bg-white border border-border rounded-lg px-3 py-2.5 text-sm text-foreground placeholder:text-muted-foreground/40 focus:outline-none focus:border-gold/50 transition-colors resize-none"
+                className="w-full bg-input border border-border rounded-lg px-3 py-2.5 text-sm text-foreground placeholder:text-muted-foreground/40 focus:outline-none focus:border-gold/50 transition-colors resize-none"
               />
             ) : (
               <input
                 type="text"
                 value={value[lang]}
                 onChange={(e) => onChange({ ...value, [lang]: e.target.value })}
-                className="w-full bg-white border border-border rounded-lg px-3 py-2.5 text-sm text-foreground placeholder:text-muted-foreground/40 focus:outline-none focus:border-gold/50 transition-colors"
+                className="w-full bg-input border border-border rounded-lg px-3 py-2.5 text-sm text-foreground placeholder:text-muted-foreground/40 focus:outline-none focus:border-gold/50 transition-colors"
               />
             )}
           </div>
@@ -168,7 +168,7 @@ function AdjustmentSlider({
   onChange: (value: number) => void;
 }) {
   return (
-    <label className="grid gap-2 rounded-lg border border-border bg-white p-3">
+    <label className="grid gap-2 rounded-lg border border-border bg-input p-3">
       <span className="flex items-center justify-between gap-3 text-xs font-medium uppercase tracking-wide text-muted-foreground">
         {label}
         <span className="font-mono text-foreground">{value}{unit}</span>
@@ -209,7 +209,7 @@ function ImageAdjustmentControls({
         <button
           type="button"
           onClick={() => onChange(DEFAULT_IMAGE_ADJUSTMENTS)}
-          className="inline-flex items-center gap-1.5 rounded-lg border border-border bg-white px-3 py-2 text-xs font-medium text-muted-foreground transition-colors hover:border-gold/50 hover:text-foreground"
+          className="inline-flex items-center gap-1.5 rounded-lg border border-border bg-input px-3 py-2 text-xs font-medium text-muted-foreground transition-colors hover:border-gold/50 hover:text-foreground"
         >
           <RotateCcw size={13} />
           Reset
@@ -706,14 +706,14 @@ export default function AdminPage() {
                                 logos[i] = { ...logo, src: e.target.value };
                                 updateContent('company', { ...content.company, logos });
                               }}
-                              className="bg-white border border-border rounded-lg px-3 py-2 text-sm text-foreground focus:outline-none focus:border-gold/50 transition-colors" />
+                              className="bg-input border border-border rounded-lg px-3 py-2 text-sm text-foreground focus:outline-none focus:border-gold/50 transition-colors" />
                             <input type="text" value={logo.alt} placeholder="Brand name"
                               onChange={(e) => {
                                 const logos = [...content.company.logos];
                                 logos[i] = { ...logo, alt: e.target.value };
                                 updateContent('company', { ...content.company, logos });
                               }}
-                              className="bg-white border border-border rounded-lg px-3 py-2 text-sm text-foreground focus:outline-none focus:border-gold/50 transition-colors" />
+                              className="bg-input border border-border rounded-lg px-3 py-2 text-sm text-foreground focus:outline-none focus:border-gold/50 transition-colors" />
                           </div>
                           <button onClick={() => updateContent('company', { ...content.company, logos: content.company.logos.filter((_, idx) => idx !== i) })}
                             className="text-muted-foreground hover:text-red-400 transition-colors shrink-0">
@@ -783,7 +783,7 @@ export default function AdminPage() {
                                       u[i] = { ...pkg, features };
                                       updateContent('pricing', u);
                                     }}
-                                    className="flex-1 bg-white border border-border rounded-lg px-3 py-1.5 text-sm text-foreground focus:outline-none focus:border-gold/50 transition-colors" />
+                                    className="flex-1 bg-input border border-border rounded-lg px-3 py-1.5 text-sm text-foreground focus:outline-none focus:border-gold/50 transition-colors" />
                                   <button onClick={() => {
                                     const u = [...content.pricing];
                                     const features = { ...pkg.features };

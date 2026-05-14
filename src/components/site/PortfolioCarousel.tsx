@@ -1,6 +1,7 @@
 'use client';
 
 import { ExternalLink, Eye, Heart, Play } from 'lucide-react';
+import { useState } from 'react';
 import { Autoplay, EffectCoverflow, Navigation, Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import type { Lang, SiteContent } from '@/lib/content';
@@ -54,6 +55,36 @@ const carouselCss = `
   }
 `;
 
+interface PortfolioThumbnailProps {
+  fallbackSrc: string;
+  title: string;
+  videoLink: string;
+}
+
+function PortfolioThumbnail({ fallbackSrc, title, videoLink }: PortfolioThumbnailProps) {
+  const [failed, setFailed] = useState(false);
+  const currentSrc = videoLink
+    ? `/api/tiktok-thumbnail?${new URLSearchParams({ format: 'image', videoUrl: videoLink }).toString()}`
+    : fallbackSrc;
+
+  return (
+    <>
+      {!currentSrc || failed ? (
+        <div className="absolute inset-0 animate-pulse bg-[linear-gradient(135deg,color-mix(in_oklch,var(--surface)_70%,black),color-mix(in_oklch,var(--gold)_16%,black),color-mix(in_oklch,var(--surface-2)_80%,black))]" />
+      ) : (
+        <img
+          src={currentSrc}
+          alt={title}
+          loading="eager"
+          decoding="async"
+          onError={() => setFailed(true)}
+          className="size-full object-cover transition-transform duration-500 group-hover:scale-105"
+        />
+      )}
+    </>
+  );
+}
+
 export default function PortfolioCarousel({ content, lang }: Props) {
   const watchLabel = lang === 'en' ? 'Watch on TikTok' : 'Tonton di TikTok';
 
@@ -95,14 +126,12 @@ export default function PortfolioCarousel({ content, lang }: Props) {
                 aria-label={`${watchLabel}: ${title}`}
                 className="group relative block aspect-[9/16] overflow-hidden rounded-lg border border-gold/20 bg-card"
               >
-                <img
-                  src={item.thumbnail}
-                  alt={title}
-                  loading="lazy"
-                  decoding="async"
-                  className="size-full object-cover transition-transform duration-500 group-hover:scale-105"
+                <PortfolioThumbnail
+                  fallbackSrc={item.thumbnail}
+                  title={title}
+                  videoLink={item.videoLink}
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[oklch(0.08_0.01_250/0.96)] via-[oklch(0.08_0.01_250/0.38)] via-38% to-[oklch(0.08_0.01_250/0.08)] opacity-100" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[oklch(0.08_0.01_250/0.82)] via-[oklch(0.08_0.01_250/0.20)] via-42% to-transparent opacity-100" />
                 <div className="absolute left-4 right-4 top-4 flex items-center justify-between">
                   <span className="inline-flex size-10 items-center justify-center rounded-full border border-white/15 bg-black/55 text-gold shadow-lg backdrop-blur">
                     <Play size={18} fill="currentColor" />
