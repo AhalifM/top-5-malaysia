@@ -98,6 +98,8 @@ export default function Navbar({ brand, ctaLink, ctaText }: Props) {
           {/* Mobile menu button */}
           <button
             onClick={() => setOpen(!open)}
+            aria-label={open ? 'Close navigation menu' : 'Open navigation menu'}
+            aria-expanded={open}
             className="p-2 text-muted-foreground transition-colors hover:text-gold md:hidden"
           >
             {open ? <X size={20} /> : <Menu size={20} />}

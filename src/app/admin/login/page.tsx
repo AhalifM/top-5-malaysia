@@ -45,7 +45,7 @@ export default function AdminLoginPage() {
             Admin Access
           </h1>
           <p className="text-sm text-muted-foreground">
-            Enter your password to continue
+            Sign in with your Firebase admin account
           </p>
         </div>
 
@@ -55,6 +55,7 @@ export default function AdminLoginPage() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="Admin email"
+            autoComplete="email"
             required
             className="w-full bg-card border border-border rounded-xl px-4 py-3 text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:border-gold/60 transition-colors"
           />
@@ -65,12 +66,14 @@ export default function AdminLoginPage() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Admin password"
+              autoComplete="current-password"
               required
               className="w-full bg-card border border-border rounded-xl px-4 py-3 pr-11 text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:border-gold/60 transition-colors"
             />
             <button
               type="button"
               onClick={() => setShowPassword(!showPassword)}
+              aria-label={showPassword ? 'Hide password' : 'Show password'}
               className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
             >
               {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
