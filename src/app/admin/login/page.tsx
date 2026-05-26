@@ -4,9 +4,12 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { Lock, Eye, EyeOff } from 'lucide-react';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { firebaseAuth } from '@/lib/firebase-auth';
 
 export default function AdminLoginPage() {
   const router = useRouter();
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
@@ -17,16 +20,11 @@ export default function AdminLoginPage() {
     setLoading(true);
     setError('');
 
-    const res = await fetch('/api/auth', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ password }),
-    });
-
-    if (res.ok) {
+    try {
+      await signInWithEmailAndPassword(firebaseAuth, email, password);
       router.push('/admin');
-    } else {
-      setError('Incorrect password. Try again.');
+    } catch {
+      setError('Incorrect email or password. Try again.');
       setLoading(false);
     }
   }
@@ -52,6 +50,15 @@ export default function AdminLoginPage() {
         </div>
 
         <form onSubmit={handleLogin} className="flex flex-col gap-4">
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="Admin email"
+            required
+            className="w-full bg-card border border-border rounded-xl px-4 py-3 text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:border-gold/60 transition-colors"
+          />
+
           <div className="relative">
             <input
               type={showPassword ? 'text' : 'password'}
@@ -84,7 +91,7 @@ export default function AdminLoginPage() {
         </form>
 
         <p className="text-center text-xs text-muted-foreground/40 mt-6">
-          Default password: <code className="text-muted-foreground/60">swifty2025</code>
+          Use a Firebase Authentication admin user.
         </p>
       </motion.div>
     </div>

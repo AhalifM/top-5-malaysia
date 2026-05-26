@@ -1,0 +1,60 @@
+[debug] [2026-05-26T18:56:05.374Z] ----------------------------------------------------------------------
+[debug] [2026-05-26T18:56:05.375Z] Command:       /opt/homebrew/Cellar/node/25.6.1/bin/node /opt/homebrew/bin/firebase deploy --only storage --project fidz-media-service
+[debug] [2026-05-26T18:56:05.376Z] CLI Version:   15.6.0
+[debug] [2026-05-26T18:56:05.376Z] Platform:      darwin
+[debug] [2026-05-26T18:56:05.376Z] Node Version:  v25.6.1
+[debug] [2026-05-26T18:56:05.376Z] Time:          Wed May 27 2026 02:56:05 GMT+0800 (Malaysia Time)
+[debug] [2026-05-26T18:56:05.376Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2026-05-26T18:56:05.869Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-05-26T18:56:05.869Z] > authorizing via signed-in user (alifmasdar33@gmail.com)
+[debug] [2026-05-26T18:56:05.869Z] [iam] checking project fidz-media-service for permissions ["firebase.projects.get","firebaserules.releases.create","firebaserules.releases.update","firebaserules.rulesets.create"]
+[debug] [2026-05-26T18:56:05.870Z] Checked if tokens are valid: true, expires at: 1779825007292
+[debug] [2026-05-26T18:56:05.870Z] Checked if tokens are valid: true, expires at: 1779825007292
+[debug] [2026-05-26T18:56:05.870Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/fidz-media-service:testIamPermissions [none]
+[debug] [2026-05-26T18:56:05.870Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/fidz-media-service:testIamPermissions  x-goog-user-project=fidz-media-service
+[debug] [2026-05-26T18:56:05.870Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/fidz-media-service:testIamPermissions {"permissions":["firebase.projects.get","firebaserules.releases.create","firebaserules.releases.update","firebaserules.rulesets.create"]}
+[debug] [2026-05-26T18:56:07.039Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/fidz-media-service:testIamPermissions 200
+[debug] [2026-05-26T18:56:07.040Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/fidz-media-service:testIamPermissions {"permissions":["firebase.projects.get","firebaserules.releases.create","firebaserules.releases.update","firebaserules.rulesets.create"]}
+[info] 
+[info] === Deploying to 'fidz-media-service'...
+[info] 
+[info] i  deploying storage 
+[info] i  storage: ensuring required API firebasestorage.googleapis.com is enabled... 
+[debug] [2026-05-26T18:56:07.043Z] Checked if tokens are valid: true, expires at: 1779825007292
+[debug] [2026-05-26T18:56:07.043Z] Checked if tokens are valid: true, expires at: 1779825007292
+[debug] [2026-05-26T18:56:07.044Z] >>> [apiv2][query] GET https://firebasestorage.googleapis.com/v1alpha/projects/fidz-media-service/defaultBucket [none]
+[debug] [2026-05-26T18:56:07.483Z] <<< [apiv2][status] GET https://firebasestorage.googleapis.com/v1alpha/projects/fidz-media-service/defaultBucket 200
+[debug] [2026-05-26T18:56:07.483Z] <<< [apiv2][body] GET https://firebasestorage.googleapis.com/v1alpha/projects/fidz-media-service/defaultBucket {"name":"projects/fidz-media-service/defaultBucket","location":"ASIA","bucket":{"name":"projects/fidz-media-service/buckets/fidz-media-service.firebasestorage.app"},"storageClass":"MULTI_REGIONAL"}
+[info] i  firebase.storage: checking storage.rules for compilation errors... 
+[debug] [2026-05-26T18:56:07.487Z] Checked if tokens are valid: true, expires at: 1779825007292
+[debug] [2026-05-26T18:56:07.487Z] Checked if tokens are valid: true, expires at: 1779825007292
+[debug] [2026-05-26T18:56:07.487Z] >>> [apiv2][query] POST https://firebaserules.googleapis.com/v1/projects/fidz-media-service:test [none]
+[debug] [2026-05-26T18:56:07.487Z] >>> [apiv2][body] POST https://firebaserules.googleapis.com/v1/projects/fidz-media-service:test [omitted]
+[debug] [2026-05-26T18:56:07.890Z] <<< [apiv2][status] POST https://firebaserules.googleapis.com/v1/projects/fidz-media-service:test 200
+[debug] [2026-05-26T18:56:07.890Z] <<< [apiv2][body] POST https://firebaserules.googleapis.com/v1/projects/fidz-media-service:test {}
+[info] ✔  firebase.storage: rules file storage.rules compiled successfully 
+[debug] [2026-05-26T18:56:07.891Z] Checked if tokens are valid: true, expires at: 1779825007292
+[debug] [2026-05-26T18:56:07.892Z] Checked if tokens are valid: true, expires at: 1779825007292
+[debug] [2026-05-26T18:56:07.892Z] >>> [apiv2][query] GET https://firebaserules.googleapis.com/v1/projects/fidz-media-service/releases pageSize=10&pageToken=
+[debug] [2026-05-26T18:56:08.189Z] <<< [apiv2][status] GET https://firebaserules.googleapis.com/v1/projects/fidz-media-service/releases 200
+[debug] [2026-05-26T18:56:08.189Z] <<< [apiv2][body] GET https://firebaserules.googleapis.com/v1/projects/fidz-media-service/releases {"releases":[{"name":"projects/fidz-media-service/releases/cloud.firestore","rulesetName":"projects/fidz-media-service/rulesets/2c25a604-1a18-4c36-867a-1c4357fa5f2e","createTime":"2026-05-26T04:43:25.774643Z","updateTime":"2026-05-26T04:54:22.650611Z"},{"name":"projects/fidz-media-service/releases/firebase.storage/fidz-media-service.firebasestorage.app","rulesetName":"projects/fidz-media-service/rulesets/7c496b37-dcf3-4fb0-b97a-35eebcbca1fe","createTime":"2026-05-26T18:53:55.270178Z","updateTime":"2026-05-26T18:53:55.270178Z"}]}
+[debug] [2026-05-26T18:56:08.197Z] Checked if tokens are valid: true, expires at: 1779825007292
+[debug] [2026-05-26T18:56:08.198Z] Checked if tokens are valid: true, expires at: 1779825007292
+[debug] [2026-05-26T18:56:08.198Z] >>> [apiv2][query] GET https://firebaserules.googleapis.com/v1/projects/fidz-media-service/rulesets/7c496b37-dcf3-4fb0-b97a-35eebcbca1fe [none]
+[debug] [2026-05-26T18:56:09.530Z] <<< [apiv2][status] GET https://firebaserules.googleapis.com/v1/projects/fidz-media-service/rulesets/7c496b37-dcf3-4fb0-b97a-35eebcbca1fe 200
+[debug] [2026-05-26T18:56:09.530Z] <<< [apiv2][body] GET https://firebaserules.googleapis.com/v1/projects/fidz-media-service/rulesets/7c496b37-dcf3-4fb0-b97a-35eebcbca1fe [omitted]
+[info] i  storage: uploading rules storage.rules... 
+[debug] [2026-05-26T18:56:09.532Z] Checked if tokens are valid: true, expires at: 1779825007292
+[debug] [2026-05-26T18:56:09.532Z] Checked if tokens are valid: true, expires at: 1779825007292
+[debug] [2026-05-26T18:56:09.532Z] >>> [apiv2][query] POST https://firebaserules.googleapis.com/v1/projects/fidz-media-service/rulesets [none]
+[debug] [2026-05-26T18:56:09.532Z] >>> [apiv2][body] POST https://firebaserules.googleapis.com/v1/projects/fidz-media-service/rulesets [omitted]
+[debug] [2026-05-26T18:56:10.860Z] <<< [apiv2][status] POST https://firebaserules.googleapis.com/v1/projects/fidz-media-service/rulesets 200
+[debug] [2026-05-26T18:56:10.860Z] <<< [apiv2][body] POST https://firebaserules.googleapis.com/v1/projects/fidz-media-service/rulesets {"name":"projects/fidz-media-service/rulesets/58794ed9-b3d4-4448-bad6-1842990c654e","source":{"files":[{"content":"rules_version = '2';\n\nservice firebase.storage {\n  match /b/{bucket}/o {\n    match /site-content/{allPaths=**} {\n      allow read: if true;\n      allow write: if request.auth != null\n        && request.resource.size < 10 * 1024 * 1024\n        && request.resource.contentType.matches('image/.*');\n    }\n  }\n}\n","name":"storage.rules"}]},"createTime":"2026-05-26T18:56:10.799583Z","metadata":{"services":["firebase.storage"]}}
+[debug] [2026-05-26T18:56:10.861Z] [rules] created ruleset projects/fidz-media-service/rulesets/58794ed9-b3d4-4448-bad6-1842990c654e
+[debug] [2026-05-26T18:56:10.861Z] [rules] releasing firebase.storage/fidz-media-service.firebasestorage.app with ruleset projects/fidz-media-service/rulesets/58794ed9-b3d4-4448-bad6-1842990c654e
+[debug] [2026-05-26T18:56:10.863Z] Checked if tokens are valid: true, expires at: 1779825007292
+[debug] [2026-05-26T18:56:10.863Z] Checked if tokens are valid: true, expires at: 1779825007292
+[debug] [2026-05-26T18:56:10.863Z] >>> [apiv2][query] PATCH https://firebaserules.googleapis.com/v1/projects/fidz-media-service/releases/firebase.storage/fidz-media-service.firebasestorage.app [none]
+[debug] [2026-05-26T18:56:10.863Z] >>> [apiv2][body] PATCH https://firebaserules.googleapis.com/v1/projects/fidz-media-service/releases/firebase.storage/fidz-media-service.firebasestorage.app {"release":{"name":"projects/fidz-media-service/releases/firebase.storage/fidz-media-service.firebasestorage.app","rulesetName":"projects/fidz-media-service/rulesets/58794ed9-b3d4-4448-bad6-1842990c654e"}}
+[debug] [2026-05-26T18:56:12.192Z] <<< [apiv2][status] PATCH https://firebaserules.googleapis.com/v1/projects/fidz-media-service/releases/firebase.storage/fidz-media-service.firebasestorage.app 200

@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { cookies } from 'next/headers';
+import { getBearerToken, verifyFirebaseIdToken } from '@/lib/firebase-admin-auth';
 
 interface TikTokOEmbedResponse {
   title?: string;
@@ -122,11 +122,9 @@ export async function GET(req: NextRequest) {
 }
 
 export async function POST(req: NextRequest) {
-  const cookieStore = await cookies();
-  const session = cookieStore.get('admin_session');
-  const adminSecret = process.env.ADMIN_SECRET ?? 'swifty_admin_2025';
+  const idToken = getBearerToken(req.headers.get('authorization'));
 
-  if (!session || session.value !== adminSecret) {
+  if (!idToken || !(await verifyFirebaseIdToken(idToken))) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 

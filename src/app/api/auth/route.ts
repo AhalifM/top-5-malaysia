@@ -1,29 +1,11 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { cookies } from 'next/headers';
+import { NextResponse } from 'next/server';
 
-export async function POST(req: NextRequest) {
-  const { password } = await req.json();
-  const adminPassword = process.env.ADMIN_PASSWORD ?? 'swifty2025';
-  const adminSecret = process.env.ADMIN_SECRET ?? 'swifty_admin_2025';
-
-  if (password !== adminPassword) {
-    return NextResponse.json({ error: 'Invalid password' }, { status: 401 });
-  }
-
-  const cookieStore = await cookies();
-  cookieStore.set('admin_session', adminSecret, {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
-    sameSite: 'lax',
-    maxAge: 60 * 60 * 8, // 8 hours
-    path: '/',
-  });
-
-  return NextResponse.json({ success: true });
+function firebaseAuthOnly() {
+  return NextResponse.json(
+    { error: 'Admin auth is handled by Firebase Authentication.' },
+    { status: 410 }
+  );
 }
 
-export async function DELETE() {
-  const cookieStore = await cookies();
-  cookieStore.delete('admin_session');
-  return NextResponse.json({ success: true });
-}
+export const POST = firebaseAuthOnly;
+export const DELETE = firebaseAuthOnly;

@@ -3,11 +3,13 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
+import { onAuthStateChanged, signOut, type User } from 'firebase/auth';
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import {
   LayoutDashboard, Image as ImageIcon, Users, Tag, Film,
   HelpCircle, Globe, LogOut, Save, Plus, Trash2, ChevronDown,
   ChevronUp, ExternalLink, CheckCircle, AlertCircle, Loader2, BadgeIcon, RefreshCw,
-  Palette, RotateCcw, SlidersHorizontal
+  Palette, RotateCcw, SlidersHorizontal, Upload
 } from 'lucide-react';
 import {
   DEFAULT_IMAGE_ADJUSTMENTS,
@@ -21,6 +23,7 @@ import {
   type Lang,
   type SiteTheme,
 } from '@/lib/content';
+import { firebaseAuth, firebaseStorage } from '@/lib/firebase-auth';
 import BrandWordmark from '@/components/site/BrandWordmark';
 
 type Section = 'settings' | 'brand' | 'hero' | 'benefits' | 'company' | 'pricing' | 'portfolio' | 'faq' | 'footer';
@@ -150,6 +153,58 @@ function ImagePreview({ src, adjustments }: { src: string; adjustments?: Partial
   );
 }
 
+function ImageUploadField({
+  label,
+  value,
+  uploadId,
+  uploadingImageId,
+  uploadError,
+  onChange,
+  onUpload,
+  adjustments,
+}: {
+  label: string;
+  value: string;
+  uploadId: string;
+  uploadingImageId: string | null;
+  uploadError: { id: string; message: string } | null;
+  onChange: (value: string) => void;
+  onUpload: (file: File) => void;
+  adjustments?: Partial<ImageAdjustments>;
+}) {
+  const isUploading = uploadingImageId === uploadId;
+  const errorMessage = uploadError?.id === uploadId ? uploadError.message : null;
+
+  return (
+    <div className="flex flex-col gap-2">
+      <Field label={label} value={value} placeholder="https://..." onChange={onChange} />
+      <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
+        <label
+          htmlFor={`upload-${uploadId}`}
+          className="inline-flex min-h-11 cursor-pointer items-center justify-center gap-2 rounded-lg border border-gold/25 px-3 py-2 text-xs font-semibold text-gold transition-all hover:bg-gold/5"
+        >
+          {isUploading ? <Loader2 size={13} className="animate-spin" /> : <Upload size={13} />}
+          {isUploading ? 'Uploading...' : 'Upload image'}
+        </label>
+        <input
+          id={`upload-${uploadId}`}
+          type="file"
+          accept="image/*"
+          disabled={isUploading}
+          onChange={(event) => {
+            const file = event.target.files?.[0];
+            event.target.value = '';
+            if (file) onUpload(file);
+          }}
+          className="sr-only"
+        />
+        {errorMessage && <span className="text-xs text-red-400">{errorMessage}</span>}
+      </div>
+      <ImagePreview src={value} adjustments={adjustments} />
+    </div>
+  );
+}
+
 function AdjustmentSlider({
   label,
   value,
@@ -239,43 +294,58 @@ export default function AdminPage() {
   const router = useRouter();
   const [activeSection, setActiveSection] = useState<Section>('hero');
   const [content, setContent] = useState<SiteContent | null>(null);
+  const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [saveStatus, setSaveStatus] = useState<'idle' | 'success' | 'error'>('idle');
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const [thumbnailLoadingId, setThumbnailLoadingId] = useState<string | null>(null);
   const [thumbnailErrorId, setThumbnailErrorId] = useState<string | null>(null);
+  const [uploadingImageId, setUploadingImageId] = useState<string | null>(null);
+  const [uploadError, setUploadError] = useState<{ id: string; message: string } | null>(null);
   const thumbnailTimers = useRef<Record<string, ReturnType<typeof setTimeout>>>({});
   const lastThumbnailFetch = useRef<Record<string, string>>({});
 
   useEffect(() => {
-    fetch('/api/content')
-      .then((r) => {
-        if (r.status === 401) { router.push('/admin/login'); return null; }
-        return r.json();
-      })
-      .then((data) => {
-        if (data) { setContent(data); setLoading(false); }
-      })
-      .catch(() => router.push('/admin/login'));
+    return onAuthStateChanged(firebaseAuth, async (currentUser) => {
+      if (!currentUser) {
+        router.push('/admin/login');
+        return;
+      }
+
+      setUser(currentUser);
+
+      try {
+        const res = await fetch('/api/content');
+        if (!res.ok) throw new Error('content-load-failed');
+        setContent((await res.json()) as SiteContent);
+        setLoading(false);
+      } catch {
+        router.push('/admin/login');
+      }
+    });
   }, [router]);
 
   const save = useCallback(async () => {
-    if (!content) return;
+    if (!content || !user) return;
     setSaving(true);
+    const idToken = await user.getIdToken();
     const res = await fetch('/api/content', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        Authorization: `Bearer ${idToken}`,
+        'Content-Type': 'application/json',
+      },
       body: JSON.stringify(content),
     });
     setSaving(false);
     setSaveStatus(res.ok ? 'success' : 'error');
     if (!res.ok && res.status === 401) router.push('/admin/login');
     setTimeout(() => setSaveStatus('idle'), 3000);
-  }, [content, router]);
+  }, [content, router, user]);
 
   async function logout() {
-    await fetch('/api/auth', { method: 'DELETE' });
+    await signOut(firebaseAuth);
     router.push('/admin/login');
   }
 
@@ -302,6 +372,47 @@ export default function AdminPage() {
     });
   }
 
+  async function uploadImage(
+    uploadId: string,
+    folder: string,
+    file: File,
+    onUploaded: (url: string) => void
+  ) {
+    if (!user) {
+      router.push('/admin/login');
+      return;
+    }
+
+    if (!file.type.startsWith('image/')) {
+      setUploadError({ id: uploadId, message: 'Choose an image file.' });
+      return;
+    }
+
+    if (file.size > 10 * 1024 * 1024) {
+      setUploadError({ id: uploadId, message: 'Image must be under 10MB.' });
+      return;
+    }
+
+    setUploadingImageId(uploadId);
+    setUploadError(null);
+
+    try {
+      const extension = file.name.split('.').pop()?.replace(/[^a-zA-Z0-9]/g, '').toLowerCase() || 'jpg';
+      const objectRef = ref(firebaseStorage, `${folder}/${Date.now()}-${crypto.randomUUID()}.${extension}`);
+      await uploadBytes(objectRef, file, {
+        contentType: file.type,
+        customMetadata: {
+          uploadedBy: user.uid,
+        },
+      });
+      onUploaded(await getDownloadURL(objectRef));
+    } catch {
+      setUploadError({ id: uploadId, message: 'Upload failed. Check Firebase Storage.' });
+    } finally {
+      setUploadingImageId(null);
+    }
+  }
+
   useEffect(() => {
     const timers = thumbnailTimers.current;
 
@@ -323,9 +434,18 @@ export default function AdminPage() {
     setThumbnailErrorId(null);
 
     try {
+      if (!user) {
+        router.push('/admin/login');
+        return;
+      }
+
+      const idToken = await user.getIdToken();
       const res = await fetch('/api/tiktok-thumbnail', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          Authorization: `Bearer ${idToken}`,
+          'Content-Type': 'application/json',
+        },
         body: JSON.stringify({ videoUrl: normalizedLink }),
       });
 
@@ -605,12 +725,18 @@ export default function AdminPage() {
                     onChange={(v) => updateContent('hero', { ...content.hero, headline: v })} />
                   <BilingualField label="Subheading" value={content.hero.subheading} multiline
                     onChange={(v) => updateContent('hero', { ...content.hero, subheading: v })} />
-                  <div>
-                    <Field label="Background Image URL" value={content.hero.backgroundImage}
-                      placeholder="https://..."
-                      onChange={(v) => updateContent('hero', { ...content.hero, backgroundImage: v })} />
-                    <ImagePreview src={content.hero.backgroundImage} adjustments={content.hero.imageAdjustments} />
-                  </div>
+                  <ImageUploadField
+                    label="Background Image URL"
+                    value={content.hero.backgroundImage}
+                    uploadId="hero-background"
+                    uploadingImageId={uploadingImageId}
+                    uploadError={uploadError}
+                    onChange={(v) => updateContent('hero', { ...content.hero, backgroundImage: v })}
+                    onUpload={(file) => uploadImage('hero-background', 'site-content/hero', file, (url) =>
+                      updateContent('hero', { ...content.hero, backgroundImage: url })
+                    )}
+                    adjustments={content.hero.imageAdjustments}
+                  />
                   <ImageAdjustmentControls
                     value={content.hero.imageAdjustments}
                     onChange={(imageAdjustments) => updateContent('hero', { ...content.hero, imageAdjustments })}
@@ -638,12 +764,23 @@ export default function AdminPage() {
                         </button>
                       </div>
                       <div>
-                        <Field label="Icon URL" value={b.icon} placeholder="https://..."
+                        <ImageUploadField
+                          label="Icon URL"
+                          value={b.icon}
+                          uploadId={`benefit-${b.id}-icon`}
+                          uploadingImageId={uploadingImageId}
+                          uploadError={uploadError}
                           onChange={(v) => {
                             const updated = [...content.benefits];
                             updated[i] = { ...b, icon: v };
                             updateContent('benefits', updated);
-                          }} />
+                          }}
+                          onUpload={(file) => uploadImage(`benefit-${b.id}-icon`, `site-content/benefits/${b.id}`, file, (url) => {
+                            const updated = [...content.benefits];
+                            updated[i] = { ...b, icon: url };
+                            updateContent('benefits', updated);
+                          })}
+                        />
                         {b.icon && (
                           <img src={b.icon} alt="" className="mt-2 h-8 w-8 object-contain"
                             style={{ filter: 'brightness(0) saturate(100%) invert(38%) sepia(95%) saturate(1757%) hue-rotate(207deg) brightness(95%) contrast(96%)' }}
@@ -678,11 +815,17 @@ export default function AdminPage() {
               {/* ---- COMPANY ---- */}
               {activeSection === 'company' && (
                 <div className="flex flex-col gap-6">
-                  <div>
-                    <Field label="Team Image URL" value={content.company.teamImage} placeholder="https://..."
-                      onChange={(v) => updateContent('company', { ...content.company, teamImage: v })} />
-                    <ImagePreview src={content.company.teamImage} />
-                  </div>
+                  <ImageUploadField
+                    label="Team Image URL"
+                    value={content.company.teamImage}
+                    uploadId="company-team"
+                    uploadingImageId={uploadingImageId}
+                    uploadError={uploadError}
+                    onChange={(v) => updateContent('company', { ...content.company, teamImage: v })}
+                    onUpload={(file) => uploadImage('company-team', 'site-content/company', file, (url) =>
+                      updateContent('company', { ...content.company, teamImage: url })
+                    )}
+                  />
                   <BilingualField label="Heading" value={content.company.heading}
                     onChange={(v) => updateContent('company', { ...content.company, heading: v })} />
                   <BilingualField label="Body Text" value={content.company.text} multiline
@@ -698,15 +841,25 @@ export default function AdminPage() {
                     <p className="text-xs font-semibold text-muted-foreground uppercase tracking-widest mb-4">Client Logos</p>
                     <div className="flex flex-col gap-3">
                       {content.company.logos.map((logo, i) => (
-                        <div key={i} className="flex items-center gap-3">
-                          <div className="flex-1 grid grid-cols-2 gap-2">
-                            <input type="text" value={logo.src} placeholder="Image URL"
-                              onChange={(e) => {
+                        <div key={i} className="grid gap-3 rounded-lg border border-border bg-background/40 p-3 sm:grid-cols-[1fr_auto]">
+                          <div className="grid gap-3">
+                            <ImageUploadField
+                              label="Logo Image URL"
+                              value={logo.src}
+                              uploadId={`company-logo-${i}`}
+                              uploadingImageId={uploadingImageId}
+                              uploadError={uploadError}
+                              onChange={(value) => {
                                 const logos = [...content.company.logos];
-                                logos[i] = { ...logo, src: e.target.value };
+                                logos[i] = { ...logo, src: value };
                                 updateContent('company', { ...content.company, logos });
                               }}
-                              className="bg-input border border-border rounded-lg px-3 py-2 text-sm text-foreground focus:outline-none focus:border-gold/50 transition-colors" />
+                              onUpload={(file) => uploadImage(`company-logo-${i}`, `site-content/company/logos`, file, (url) => {
+                                const logos = [...content.company.logos];
+                                logos[i] = { ...logo, src: url };
+                                updateContent('company', { ...content.company, logos });
+                              })}
+                            />
                             <input type="text" value={logo.alt} placeholder="Brand name"
                               onChange={(e) => {
                                 const logos = [...content.company.logos];
@@ -716,7 +869,7 @@ export default function AdminPage() {
                               className="bg-input border border-border rounded-lg px-3 py-2 text-sm text-foreground focus:outline-none focus:border-gold/50 transition-colors" />
                           </div>
                           <button onClick={() => updateContent('company', { ...content.company, logos: content.company.logos.filter((_, idx) => idx !== i) })}
-                            className="text-muted-foreground hover:text-red-400 transition-colors shrink-0">
+                            className="min-h-11 text-muted-foreground hover:text-red-400 transition-colors shrink-0">
                             <Trash2 size={14} />
                           </button>
                         </div>
@@ -833,11 +986,19 @@ export default function AdminPage() {
                             <Trash2 size={14} />
                           </button>
                         </div>
-                        <div>
-                          <Field label="Thumbnail Image URL" value={item.thumbnail} placeholder="https://..."
-                            onChange={(v) => { const u = [...content.portfolio]; u[i] = { ...item, thumbnail: v }; updateContent('portfolio', u); }} />
-                          <ImagePreview src={item.thumbnail} />
-                        </div>
+                        <ImageUploadField
+                          label="Thumbnail Image URL"
+                          value={item.thumbnail}
+                          uploadId={`portfolio-${item.id}-thumbnail`}
+                          uploadingImageId={uploadingImageId}
+                          uploadError={uploadError}
+                          onChange={(v) => { const u = [...content.portfolio]; u[i] = { ...item, thumbnail: v }; updateContent('portfolio', u); }}
+                          onUpload={(file) => uploadImage(`portfolio-${item.id}-thumbnail`, `site-content/portfolio/${item.id}`, file, (url) => {
+                            const u = [...content.portfolio];
+                            u[i] = { ...item, thumbnail: url };
+                            updateContent('portfolio', u);
+                          })}
+                        />
                         <div className="flex flex-col gap-2">
                           <Field label="Video / Link URL" value={item.videoLink} placeholder="https://tiktok.com/@user/video/..."
                             onChange={(v) => {
