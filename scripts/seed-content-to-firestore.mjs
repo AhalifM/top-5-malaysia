@@ -1,9 +1,23 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
+import { loadEnvConfig } from '@next/env';
+
+loadEnvConfig(process.cwd());
+
+function requiredEnv(name) {
+  const value = process.env[name];
+
+  if (!value) {
+    console.error(`Missing required environment variable: ${name}`);
+    process.exit(1);
+  }
+
+  return value;
+}
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyC1fbP8IO1cbg0SN--1hHiM4EiwzzQWaI4',
-  projectId: 'fidz-media-service',
+  apiKey: requiredEnv('NEXT_PUBLIC_FIREBASE_API_KEY'),
+  projectId: requiredEnv('NEXT_PUBLIC_FIREBASE_PROJECT_ID'),
 };
 
 const email = process.env.FIREBASE_ADMIN_EMAIL;
