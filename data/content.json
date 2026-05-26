@@ -1,4 +1,7 @@
 {
+  "settings": {
+    "whatsappPhone": "60123456789"
+  },
   "theme": {
     "paletteId": "swifty-noir",
     "accent": "#d4af37",

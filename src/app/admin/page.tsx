@@ -629,6 +629,19 @@ export default function AdminPage() {
               {activeSection === 'settings' && (
                 <div className="flex flex-col gap-6">
                   <div className="border border-border rounded-xl p-5 bg-card">
+                    <p className="text-xs font-semibold text-muted-foreground uppercase tracking-widest mb-4">Contact Settings</p>
+                    <Field
+                      label="WhatsApp Phone Number"
+                      value={content.settings.whatsappPhone}
+                      placeholder="60123456789"
+                      onChange={(v) => updateContent('settings', { ...content.settings, whatsappPhone: v })}
+                    />
+                    <p className="mt-2 text-xs leading-relaxed text-muted-foreground/70">
+                      Used by the main WhatsApp buttons and package enquiry buttons. Enter numbers only with country code.
+                    </p>
+                  </div>
+
+                  <div className="border border-border rounded-xl p-5 bg-card">
                     <p className="text-xs font-semibold text-muted-foreground uppercase tracking-widest mb-4">Color Palettes</p>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                       {THEME_PALETTES.map((palette) => (
@@ -743,8 +756,8 @@ export default function AdminPage() {
                   />
                   <BilingualField label="CTA Button Text" value={content.hero.ctaText}
                     onChange={(v) => updateContent('hero', { ...content.hero, ctaText: v })} />
-                  <Field label="CTA Link (WhatsApp or URL)" value={content.hero.ctaLink}
-                    placeholder="https://wa.me/..."
+                  <Field label="Custom CTA Link (optional)" value={content.hero.ctaLink}
+                    placeholder="Leave as WhatsApp or use another URL"
                     onChange={(v) => updateContent('hero', { ...content.hero, ctaLink: v })} />
                 </div>
               )}
@@ -917,7 +930,7 @@ export default function AdminPage() {
                         <Field label="Original Price" value={pkg.originalPrice} placeholder="RM 5,000"
                           onChange={(v) => { const u = [...content.pricing]; u[i] = { ...pkg, originalPrice: v }; updateContent('pricing', u); }} />
                       </div>
-                      <Field label="WhatsApp / CTA Link" value={pkg.ctaLink} placeholder="https://wa.me/..."
+                      <Field label="Custom CTA Link (optional)" value={pkg.ctaLink} placeholder="Leave as WhatsApp or use another URL"
                         onChange={(v) => { const u = [...content.pricing]; u[i] = { ...pkg, ctaLink: v }; updateContent('pricing', u); }} />
 
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">

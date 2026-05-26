@@ -2,7 +2,7 @@
 
 import { getAuth } from 'firebase/auth';
 import { getStorage } from 'firebase/storage';
-import { firebaseApp } from './firebase';
+import { getFirebaseApp } from './firebase';
 
-export const firebaseAuth = getAuth(firebaseApp);
-export const firebaseStorage = getStorage(firebaseApp);
+export const firebaseAuth = getAuth(getFirebaseApp());
+export const firebaseStorage = getStorage(getFirebaseApp());

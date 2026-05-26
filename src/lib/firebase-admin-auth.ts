@@ -1,6 +1,8 @@
-import { firebaseConfig } from './firebase';
+import { getFirebaseConfig } from './firebase';
 
 export async function verifyFirebaseIdToken(idToken: string): Promise<boolean> {
+  const firebaseConfig = getFirebaseConfig();
+
   const response = await fetch(
     `https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=${firebaseConfig.apiKey}`,
     {

@@ -10,9 +10,10 @@ import HeroScene from './HeroScene';
 
 interface Props {
   content: SiteContent['hero'];
+  ctaLink: string;
 }
 
-export default function HeroSection({ content }: Props) {
+export default function HeroSection({ content, ctaLink }: Props) {
   const { lang } = useLang();
 
   return (
@@ -93,7 +94,7 @@ export default function HeroSection({ content }: Props) {
           className="flex flex-col items-center gap-4 sm:flex-row lg:justify-start"
         >
           <a
-            href={content.ctaLink}
+            href={ctaLink}
             target="_blank"
             rel="noopener noreferrer"
             className="group inline-flex items-center gap-2 rounded-full bg-gold px-8 py-3.5 font-semibold text-primary-foreground transition-all duration-300 hover:bg-gold-light gold-glow"

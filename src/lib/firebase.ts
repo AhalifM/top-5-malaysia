@@ -1,4 +1,4 @@
-import { getApp, getApps, initializeApp } from 'firebase/app';
+import { getApp, getApps, initializeApp, type FirebaseApp, type FirebaseOptions } from 'firebase/app';
 import type { Analytics } from 'firebase/analytics';
 import { getFirestore } from 'firebase/firestore';
 
@@ -10,18 +10,27 @@ export const firebaseConfig = {
   messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
   appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
   measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID,
-};
+} satisfies Partial<FirebaseOptions>;
 
-const missingFirebaseConfig = Object.entries(firebaseConfig)
-  .filter(([key, value]) => key !== 'measurementId' && !value)
-  .map(([key]) => key);
+export function getFirebaseConfig(): FirebaseOptions {
+  const missingFirebaseConfig = Object.entries(firebaseConfig)
+    .filter(([key, value]) => key !== 'measurementId' && !value)
+    .map(([key]) => key);
 
-if (missingFirebaseConfig.length > 0) {
-  throw new Error(`Missing Firebase environment config: ${missingFirebaseConfig.join(', ')}`);
+  if (missingFirebaseConfig.length > 0) {
+    throw new Error(`Missing Firebase environment config: ${missingFirebaseConfig.join(', ')}`);
+  }
+
+  return firebaseConfig as FirebaseOptions;
 }
 
-export const firebaseApp = getApps().length > 0 ? getApp() : initializeApp(firebaseConfig);
-export const firebaseDb = getFirestore(firebaseApp);
+export function getFirebaseApp(): FirebaseApp {
+  return getApps().length > 0 ? getApp() : initializeApp(getFirebaseConfig());
+}
+
+export function getFirebaseDb() {
+  return getFirestore(getFirebaseApp());
+}
 
 let analyticsPromise: Promise<Analytics | null> | undefined;
 
@@ -36,7 +45,7 @@ export function getFirebaseAnalytics() {
         return null;
       }
 
-      return getAnalytics(firebaseApp);
+      return getAnalytics(getFirebaseApp());
     })
     .catch((error) => {
       if (process.env.NODE_ENV === 'development') {

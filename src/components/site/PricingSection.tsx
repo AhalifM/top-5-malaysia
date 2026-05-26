@@ -5,13 +5,14 @@ import { Check, ArrowRight, Flame } from 'lucide-react';
 import AnimateIn from './AnimateIn';
 import { useLang } from '@/context/LanguageContext';
 import type { SiteContent } from '@/lib/content';
-import { t } from '@/lib/content';
+import { resolveCtaLink, t } from '@/lib/content';
 
 interface Props {
   content: SiteContent['pricing'];
+  whatsappPhone: string;
 }
 
-export default function PricingSection({ content }: Props) {
+export default function PricingSection({ content, whatsappPhone }: Props) {
   const { lang } = useLang();
   const packageGuides = [
     lang === 'en' ? 'Best for testing the channel' : 'Terbaik untuk cuba saluran',
@@ -95,7 +96,11 @@ export default function PricingSection({ content }: Props) {
                 </ul>
 
                 <a
-                  href={pkg.ctaLink}
+                  href={resolveCtaLink(
+                    pkg.ctaLink,
+                    whatsappPhone,
+                    `Hi, I'm interested in the ${t(pkg.name, 'en')}`
+                  )}
                   target="_blank"
                   rel="noopener noreferrer"
                   className={`group relative flex items-center justify-center gap-2 rounded-full px-6 py-3.5 text-sm font-bold transition-all duration-300 ${

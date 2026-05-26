@@ -1,10 +1,14 @@
-import { firebaseConfig } from './firebase';
 import { doc, getDoc } from 'firebase/firestore';
-import { firebaseDb } from './firebase';
-import { normalizeImageAdjustments, normalizeTheme, type SiteContent } from './content';
+import { getFirebaseConfig, getFirebaseDb } from './firebase';
+import {
+  getWhatsappPhoneFromLink,
+  normalizeImageAdjustments,
+  normalizeSettings,
+  normalizeTheme,
+  type SiteContent,
+} from './content';
 
 const contentDocumentPath = 'siteContent/main';
-const firestoreBaseUrl = `https://firestore.googleapis.com/v1/projects/${firebaseConfig.projectId}/databases/(default)/documents`;
 
 type FirestoreValue =
   | { nullValue: null }
@@ -32,6 +36,7 @@ export class FirebaseContentError extends Error {
 function normalizeContent(content: SiteContent): SiteContent {
   return {
     ...content,
+    settings: normalizeSettings(content.settings, getWhatsappPhoneFromLink(content.hero?.ctaLink)),
     theme: normalizeTheme(content.theme),
     hero: {
       ...content.hero,
@@ -83,12 +88,15 @@ function encodeFirestoreDocument(data: SiteContent): FirestoreDocument {
 }
 
 function getDocumentUrl() {
+  const firebaseConfig = getFirebaseConfig();
+  const firestoreBaseUrl = `https://firestore.googleapis.com/v1/projects/${firebaseConfig.projectId}/databases/(default)/documents`;
+
   return `${firestoreBaseUrl}/${contentDocumentPath}?key=${firebaseConfig.apiKey}`;
 }
 
 export async function readContent(): Promise<SiteContent> {
   try {
-    const snapshot = await getDoc(doc(firebaseDb, contentDocumentPath));
+    const snapshot = await getDoc(doc(getFirebaseDb(), contentDocumentPath));
 
     if (!snapshot.exists()) {
       throw new FirebaseContentError('Firebase content document siteContent/main was not found.', 404);

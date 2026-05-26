@@ -20,6 +20,10 @@ export interface Brand {
   highlight: string;
 }
 
+export interface SiteSettings {
+  whatsappPhone: string;
+}
+
 export interface ImageAdjustments {
   brightness: number;
   contrast: number;
@@ -152,6 +156,64 @@ export const DEFAULT_IMAGE_ADJUSTMENTS: ImageAdjustments = {
   blur: 0,
 };
 
+export const DEFAULT_SITE_SETTINGS: SiteSettings = {
+  whatsappPhone: '',
+};
+
+export function getWhatsappPhoneFromLink(link?: string): string {
+  if (!link) return '';
+
+  try {
+    const url = new URL(link);
+    const hostname = url.hostname.replace(/^www\./, '');
+
+    if (hostname === 'wa.me') {
+      return normalizeWhatsappPhone(url.pathname);
+    }
+
+    if (hostname.endsWith('whatsapp.com')) {
+      return normalizeWhatsappPhone(url.searchParams.get('phone') ?? '');
+    }
+  } catch {
+    return '';
+  }
+
+  return '';
+}
+
+export function normalizeSettings(settings?: Partial<SiteSettings>, fallbackPhone = ''): SiteSettings {
+  return {
+    ...DEFAULT_SITE_SETTINGS,
+    ...settings,
+    whatsappPhone: settings?.whatsappPhone ?? fallbackPhone,
+  };
+}
+
+export function normalizeWhatsappPhone(value: string): string {
+  return value.replace(/[^\d]/g, '');
+}
+
+export function createWhatsappLink(phone: string, message?: string): string {
+  const normalizedPhone = normalizeWhatsappPhone(phone);
+
+  if (!normalizedPhone) {
+    return '#';
+  }
+
+  const text = message ? `?text=${encodeURIComponent(message)}` : '';
+  return `https://wa.me/${normalizedPhone}${text}`;
+}
+
+export function resolveCtaLink(link: string | undefined, phone: string, message?: string): string {
+  const value = link?.trim() ?? '';
+
+  if (!value || value.includes('wa.me/') || value.includes('whatsapp.com/')) {
+    return createWhatsappLink(phone, message);
+  }
+
+  return value;
+}
+
 export function normalizeTheme(theme?: Partial<SiteTheme>): SiteTheme {
   const palette = THEME_PALETTES.find((item) => item.id === theme?.paletteId) ?? THEME_PALETTES[0];
   const { id: _id, name: _name, ...paletteTheme } = palette;
@@ -247,6 +309,7 @@ export interface FaqItem {
 }
 
 export interface SiteContent {
+  settings: SiteSettings;
   theme: SiteTheme;
   brand: Brand;
   hero: {
